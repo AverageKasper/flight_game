@@ -69,7 +69,7 @@ def gambling(money):
     return curr_money
 
 command = ""
-# Command loop, end command stops loop, trivia not yet added
+# Command loop, end command stops loop
 while command != "end":
     command = input("Select command (move,gamble,balance,end): ")
     if command == "move":
