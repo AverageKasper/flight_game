@@ -1,5 +1,7 @@
 import mysql.connector
 import random as r
+
+# Connector does not work straight up, needs your own user and password
 con = mysql.connector.connect(
                 host='localhost',
                 database='flight_game',
