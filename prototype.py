@@ -11,14 +11,24 @@ con = mysql.connector.connect(
                 collation="utf8mb4_general_ci"
                 )
 
+# All variables
+command = ""
 balance = 500
+airport_name = "Helsinki Vantaa Airport"
+airport_country = "FI"
+airport_icao = "EFHK"
+airport_casino = ["LEBL"]
 
+# Airport moving
 def current_airport(code):
-    sql = f"select name, iso_country from airport where ident = '{code}'"
+    sql = f"select name, iso_country, ident from airport where ident = '{code}'"
     cursor = con.cursor()
     cursor.execute(sql)
     name = cursor.fetchall()
-    return f"{name[0][0]}, {name[0][1]}"
+    if cursor.rowcount > 0:
+        return name[0][0] , name[0][1], name[0][2]
+    else:
+        return "","",""
 
 # General gambling script
 def gambling(money):
@@ -68,7 +78,7 @@ def gambling(money):
                         curr_money -= bet
     return curr_money
 
-command = ""
+
 # Command loop, end command stops loop
 while command != "end":
     command = input("Select command (help): ")
@@ -77,19 +87,29 @@ while command != "end":
               "move - Move to a new airport\n"
               "gamble - Go to gambling\n"
               "balance - Check current balance\n"
-              "end - Ends game"
-              
+              "end - Ends game\n"
+              "airport - See what airport you are at currently"
               
               )
     elif command == "move":
         next_airport = input("What airport do you want to go to now(ICAO): ").upper()
-        airport = current_airport(next_airport)
-        print(f"You are at {airport} ")
+        airtemp1,airtemp2,airtemp3 = current_airport(next_airport)
+        if airtemp1 == "":
+            print("This icao code is incorrect")
+        else:
+            airport_name, airport_country,airport_icao = airtemp1,airtemp2,airtemp3
+            print(f"You are at {airport_name}, {airport_country} ")
+            
     elif command == "gamble":
-        new_balance = gambling(balance)
-        balance = new_balance
+        if airport_icao in airport_casino:
+            new_balance = gambling(balance)
+            balance = new_balance
+        else:
+            print("This airport doesnt have a casino")
     elif command == "balance":
         print(f"You have {balance} Dollars")
+    elif command == "airport":
+        print(f"Your current airport is {airport_name}, {airport_country}")
     elif command == "end":
         print("Goodbye")
         break
