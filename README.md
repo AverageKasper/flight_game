@@ -2,6 +2,8 @@
 Ryhmäprojekti
 ## Vibe Check
 ### Elias:
+![Untitled](https://github.com/user-attachments/assets/fd25a7f8-191b-4f4b-af0a-1f464d80a1df)
+
 ### Munttu:
 ![image](https://github.com/user-attachments/assets/902c7292-f263-4f05-b8b1-09d5e9e3b4ba)
 
