@@ -10,7 +10,7 @@ Bing chilling
 ### Munttu:
 Sql alkuscriptin
 
-![image](https://github.com/user-attachments/assets/902c7292-f263-4f05-b8b1-09d5e9e3b4ba)
+![image]([https://github.com/user-attachments/assets/902c7292-f263-4f05-b8b1-09d5e9e3b4ba](https://www.google.com/imgres?q=filthy%20frank&imgurl=https%3A%2F%2Fimages.nexusmods.com%2Fmod-headers%2F2751%2F261.jpg&imgrefurl=https%3A%2F%2Fwww.nexusmods.com%2Fdevilmaycry5%2Fmods%2F261&docid=PZIFiuK9DxLUtM&tbnid=vRY-h5Imymfa0M&vet=12ahUKEwjh-JLhx9GIAxV5QVUIHYyZDsMQM3oECCsQAA..i&w=1400&h=400&hcb=2&ved=2ahUKEwjh-JLhx9GIAxV5QVUIHYyZDsMQM3oECCsQAA))
 
 ### Alex: 
 tekee jotain hauskaa
