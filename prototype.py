@@ -114,7 +114,12 @@ while command != "end":
         print("Goodbye")
         break
 
+
+#a random comment to test shit out
+#another one
+
 print("monke")
 
 print(airport_casino)
 blakc= 1203
+
