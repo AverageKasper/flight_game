@@ -5,8 +5,8 @@ import random as r
 con = mysql.connector.connect(
                 host='localhost',
                 database='flight_game',
-                user='kasper',
-                password='Monkey',
+                user='root',
+                password='K1rahV1!',
                 autocommit=True,
                 collation="utf8mb4_general_ci"
                 )
@@ -113,3 +113,5 @@ while command != "end":
     elif command == "end":
         print("Goodbye")
         break
+
+print("monke")
