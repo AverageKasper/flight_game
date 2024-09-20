@@ -1,5 +1,6 @@
 # flight_game
 Ryhmäprojekti
+docs https://docs.google.com/document/d/1cmcR5F7apvGQ1dA0ZNrm-sy3mD_xx5VQrHhuvgj7IXs/edit?usp=sharing
 ## Vibe Check
 ### Elias:
 Bing chilling
