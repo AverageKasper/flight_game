@@ -115,3 +115,6 @@ while command != "end":
         break
 
 print("monke")
+
+print(airport_casino)
+blakc= 1203
