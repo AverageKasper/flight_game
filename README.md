@@ -3,14 +3,17 @@ Ryhmäprojekti
 ## Vibe Check
 ### Elias:
 Bing chilling
+
 ![Untitled](https://github.com/user-attachments/assets/fd25a7f8-191b-4f4b-af0a-1f464d80a1df)
 
 ### Munttu:
 Sql alkuscriptin
+
 ![image](https://github.com/user-attachments/assets/902c7292-f263-4f05-b8b1-09d5e9e3b4ba)
 
 ### Alex: 
 tekee jotain hauskaa
+
 ![images](https://github.com/user-attachments/assets/23d8bfc7-a1e5-4806-bb7b-d1505c06d6a3)
 
 ### Kasper: 
