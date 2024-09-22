@@ -29,7 +29,7 @@ balance = 500
 airport_name = "Helsinki Vantaa Airport"
 airport_country = "FI"
 airport_type = "large_airport"
-cp = 1000 
+cp = 150
 airport_cp_cost = [100,200,500]
 actions_per_airport = 2
 # What if when you go to a small airport the event counter goes down by 1, medium goes by 2, and large goes by 3. and events are some good some bad, more bad
@@ -43,6 +43,7 @@ def airport_options(type):
     list = cursor.fetchall()
     return list[0]
 
+# Function for next airport
 def airport_chooser():
     anim_print (f"""\nYou are at {airport_name},{airport_country}.
 Your next airport options are:
@@ -99,9 +100,31 @@ def gambling(money):
                         curr_money -= bet
     return curr_money
 
-
-
-
+def dumpster_dive():
+    money = 0
+    cp = 0
+    
+    find = r.randint(1,10)
+    if find == 1:
+        pass
+    elif find == 2:
+        pass
+    elif find == 3:
+        pass
+    elif find == 4:
+        pass
+    elif find == 5:
+        pass
+    elif find == 6:
+        pass
+    elif find == 7:
+        pass
+    elif find == 8:
+        pass
+    elif find == 9:
+        pass
+    elif find == 10:
+        pass
 
 
 # Under here should be the last part of code
@@ -117,9 +140,11 @@ while game_end == False:
     small_airport = airport_options("small_airport")
     medium_airport = airport_options("medium_airport")
     large_airport = airport_options("large_airport")
-    # 
+    
+    # Go to airport choosing function 
     next_airport = airport_chooser()
     
+    # Check what airport was chosen
     if next_airport == 1:
         if cp < airport_cp_cost[0]:
             anim_print("You dont have enough CP.")
@@ -144,26 +169,42 @@ while game_end == False:
     # For testing, at selection input 4 to stop game
     elif next_airport == 4:
         game_end = True
+        break
     anim_print(f"You have {cp}CP left.")
-    # Insert task system here
-    anim_print(f"You have arrived at {airport_name}, {airport_country}")
-    if airport_type == "small_country":
-        pass
-    elif airport_type == "meduim_airport":
-        pass
-    elif airport_type == "large_airport":
-        anim_print(f"""\nThings to do at this airport:
+
+    # Task loop
+    while actions_per_airport !=0:
+        
+        # Insert task system here
+        anim_print(f"\nYou are at {airport_name}, {airport_country}")
+        # So far we have only 1 task, to gamble
+        if airport_type == "small_airport":
+            anim_print(f"""\nThings to do at this airport:
+1. Dumpster dive
+""")
+            task_choice = int(input("What do you want to do: "))
+            if task_choice == 1:
+                dumpster_dive()
+        elif airport_type == "meduim_airport":
+            anim_print("No tasks at this airport atm")
+        elif airport_type == "large_airport":
+            anim_print(f"""\nThings to do at this airport:
 1. Gamble
 2. Invest
-3. Die
+3. Go to the next airport
 """)
-    else: 
-        print("how the fuck you get here")
-    task_choice = int(input("What do you want to do: "))
-    if task_choice == 1:
-        gambling_balance = gambling(balance)
-        balance = gambling
+            task_choice = int(input("What do you want to do: "))
+            if task_choice == 1:
+                gambling_balance = gambling(balance)
+                balance = gambling
+            elif task_choice == 3:
+                clear_window()
+                break
 
+        else: 
+            print("how the fuck you get here")
+        actions_per_airport -= 1
+        
 
 
 
