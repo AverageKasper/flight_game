@@ -22,3 +22,19 @@ tekee jotain hauskaa
 Main gameplay loop ehkä
 
 ![image](https://github.com/user-attachments/assets/e1050929-a54e-4af6-ba68-8142ed86f489)
+
+### Tasks made
+- Trivia * / medium
+_ Dumpster Diving * / small
+- Gambling * / large
+* - needs work
+### Task Ideas
+- Dialogue
+-- Helping travelers with simple tasks like directions, baggage handling, or language translation (based on choosing the correct options in a dialogue or action tree).
+- Part-time Work
+- Pickpocketing
+- 
+### Random event ideas
+- Call mother for allowance
+- You meet a Black market Organ dealer, you can sell your kidney
+- 9/11 2
