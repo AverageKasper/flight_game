@@ -211,7 +211,7 @@ while game_end == False:
             elif task_choice == 2:
                 clear_window()
                 break
-        elif airport_type == "meduim_airport":
+        elif airport_type == "medium_airport":
             anim_print("No tasks at this airport atm")
         elif airport_type == "large_airport":
             anim_print(f"""\nThings to do at this airport:
