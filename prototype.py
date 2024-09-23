@@ -2,12 +2,13 @@ import mysql.connector
 import random as r
 import time
 import os
+import trivia
 # Connector does not work straight up, needs your own user and password
 con = mysql.connector.connect(
                 host='localhost',
                 database='flight_game',
-                user='kasper',
-                password='Monkey',
+                user='root',
+                password='K1rahV1!',
                 autocommit=True,
                 collation="utf8mb4_general_ci"
                 )
@@ -16,7 +17,7 @@ con = mysql.connector.connect(
 def anim_print(text):
     for char in text:
         print(char, end="", flush=True)
-        time.sleep(0.03)
+        time.sleep(0.0)
 
 # Clearing console function
 def clear_window():
@@ -29,11 +30,14 @@ balance = 500
 airport_name = "Helsinki Vantaa Airport"
 airport_country = "FI"
 airport_type = "large_airport"
-cp = 150
+cp = 1500
 airport_cp_cost = [100,200,500]
 actions_per_airport = 2
 # What if when you go to a small airport the event counter goes down by 1, medium goes by 2, and large goes by 3. and events are some good some bad, more bad
 event_counter = 6
+loan_shark = 2
+task_active = True
+
 
 # Airport moving
 def airport_options(type):
@@ -193,10 +197,11 @@ while game_end == False:
         game_end = True
         break
     anim_print(f"You have {cp}CP left.")
-
+    loan_shark += 1
     # Task loop
-    while actions_per_airport !=0:
-        
+    while actions_per_airport !=0 or task_active == True:
+
+
         # Insert task system here
         anim_print(f"\nYou are at {airport_name}, {airport_country}")
         # So far we have only 1 task, to gamble
@@ -208,11 +213,22 @@ while game_end == False:
             task_choice = int(input("What do you want to do: "))
             if task_choice == 1:
                 temp_money, temp_cp = dumpster_dive()
+                loan_shark -= 1
             elif task_choice == 2:
                 clear_window()
-                break
+                task_active = False
         elif airport_type == "medium_airport":
-            anim_print("No tasks at this airport atm")
+            anim_print(f"""\nThings to do at this airport:
+1. Trivia
+2. Go to the next airport
+""")
+            task_choice = int(input("What do you want to do: "))
+            if task_choice == 1:
+                trivia_score = trivia.trivia_game()
+                print(trivia_score)
+            elif task_choice == 2:
+                clear_window()
+                task_active = False
         elif airport_type == "large_airport":
             anim_print(f"""\nThings to do at this airport:
 1. Gamble
@@ -222,18 +238,16 @@ while game_end == False:
             if task_choice == 1:
                 gambling_balance = gambling(balance)
                 balance = gambling
+                loan_shark -= 1
             elif task_choice == 2:
                 clear_window()
-                break
-
+                task_active = False
         else: 
             print("how the fuck you get here")
         actions_per_airport -= 1
-        
-
-
-
-
+        anim_print(f"the loan shark is {loan_shark} airports behind...")
+        if actions_per_airport == 0:
+            task_active = False
 
 
 
@@ -244,6 +258,12 @@ while game_end == False:
 Lets see how your journey has gone: 
 #list shit here#""")
         input()
+        game_end = True
+    if loan_shark <=1:
+        if balance > 10000:
+            print("You've been caught by the loan shark but you had enough money on you to pay them back.")
+        else:
+            anim_print("You've been caught by the loan shark and got beaten to death...")
         game_end = True
 clear_window()
 
