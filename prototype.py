@@ -1,6 +1,6 @@
 import mysql.connector
 import random as r
-
+import blackjack
 # Connector does not work straight up, needs your own user and password
 con = mysql.connector.connect(
                 host='localhost',
@@ -110,9 +110,9 @@ while command != "end":
         print(f"You have {balance} Dollars")
     elif command == "airport":
         print(f"Your current airport is {airport_name}, {airport_country}")
+    elif command == "blackjack":
+        blackjack.blackjack()
     elif command == "end":
         print("Goodbye")
         break
 
-#a random comment to test shit out
-#another one

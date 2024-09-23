@@ -1,0 +1,2 @@
+def blackjack():
+    print("Blackjack")
