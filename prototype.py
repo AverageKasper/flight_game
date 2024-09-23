@@ -252,7 +252,6 @@ clear_window()
 
 # Credits at the end of the game
 anim_print(f"""Credits:  
-
 Elias Eide
 Munttu
 Kasper Paredes Aalto
@@ -292,3 +291,4 @@ input()
 #
 #
 #
+
