@@ -203,23 +203,26 @@ while game_end == False:
         if airport_type == "small_airport":
             anim_print(f"""\nThings to do at this airport:
 1. Dumpster dive
+2. Go to the next airport
 """)
             task_choice = int(input("What do you want to do: "))
             if task_choice == 1:
                 temp_money, temp_cp = dumpster_dive()
+            elif task_choice == 2:
+                clear_window()
+                break
         elif airport_type == "meduim_airport":
             anim_print("No tasks at this airport atm")
         elif airport_type == "large_airport":
             anim_print(f"""\nThings to do at this airport:
 1. Gamble
-2. Invest
-3. Go to the next airport
+2. Go to the next airport
 """)
             task_choice = int(input("What do you want to do: "))
             if task_choice == 1:
                 gambling_balance = gambling(balance)
                 balance = gambling
-            elif task_choice == 3:
+            elif task_choice == 2:
                 clear_window()
                 break
 
@@ -275,3 +278,17 @@ Googling shit
 """)
 input()
 
+# List of shit to do:
+# Make more tasks
+# Rewrite gambling(See alex) 
+# See what else can be done with SQL(See munttu)
+# Make Loanshark chasing 
+# 
+# List of problems: 
+# Will crash if input is not number
+# anim_print works but you can still use the next input before it finishes, kind of a non-issue but if can be looked at  
+# 
+#
+#
+#
+#
