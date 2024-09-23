@@ -3,6 +3,7 @@ import random as r
 import time
 import os
 import trivia
+from gambling import casino
 # Connector does not work straight up, needs your own user and password
 con = mysql.connector.connect(
                 host='localhost',
@@ -57,52 +58,7 @@ Your next airport options are:
     next_airport = int(input("\nSelect airport number: "))
     return next_airport
 # General gambling script
-def gambling(money):
-    curr_money = money
-    game_select = ""
-    while game_select != "return":
-        game_select = input("Choose a game to play(dice,hilo) or go back(return): ")
-        if game_select != "return":
-            bet = int(input("How much do you want to bet: "))
-            if bet > curr_money:
-                print("You dont have enough money")
-                continue
-            else:
-                # Dice game, win if higher than dealer
-                if game_select == "dice":
-                    dealer_dice1 = r.randint(1,6)
-                    dealer_dice2 = r.randint(1,6)
-                    player_dice1 = r.randint(1,6)
-                    player_dice2 = r.randint(1,6)
-                    dealer_dice_total = dealer_dice1 + dealer_dice2
-                    player_dice_total = player_dice1 + player_dice2
-                    if dealer_dice_total > player_dice_total:
-                        print(f"The dealer got {dealer_dice1,dealer_dice2}.\nYou got {player_dice1,player_dice2}.\n"
-                            f"You lost {bet} Dollars")
-                        curr_money -= bet
-                    elif dealer_dice_total < player_dice_total:
-                        print(f"The dealer got {dealer_dice1,dealer_dice2}.\nYou got {player_dice1,player_dice2}.\n"
-                            f"You won {bet} Dollars")
-                        curr_money += bet
-                    else:
-                        print(f"The dealer got {dealer_dice1,dealer_dice2}.\nYou got {player_dice1,player_dice2}.\n"
-                            f"You tied")
-                
-                # HiLo game, Win if correct quess
-                elif game_select == "hilo":
-                    first_card = r.randint(1,13)
-                    print(f"First card is {first_card}.")
-                    player_quess = input("Will the next one be higher or lower (HI/LO):").upper()
-                    second_card = r.randint(1,13)
-                    if (first_card < second_card and player_quess == "HI") or (first_card > second_card and player_quess == "LO"):
-                        print(f"Second card is {second_card}.\nYou win {bet} Dollars")
-                        curr_money += bet
-                    elif first_card == second_card:
-                        print(f"Second card is {second_card}.\nYou tied")
-                    else:
-                        print(f"Second card is {second_card}.\nYou lose {bet} Dollars")
-                        curr_money -= bet
-    return curr_money
+
 
 # Function for dumpster diving at small airports, returns gained currencies
 def dumpster_dive():
@@ -236,16 +192,17 @@ while game_end == False:
 """)
             task_choice = int(input("What do you want to do: "))
             if task_choice == 1:
-                gambling_balance = gambling(balance)
-                balance = gambling
+                gambling_balance = casino(balance)
+                balance = gambling_balance
                 loan_shark -= 1
             elif task_choice == 2:
                 clear_window()
                 task_active = False
+        # Shits fucked if it goes here
         else: 
             print("how the fuck you get here")
         actions_per_airport -= 1
-        anim_print(f"the loan shark is {loan_shark} airports behind...")
+        anim_print(f"\nthe loan shark is {loan_shark} airports behind...")
         if actions_per_airport == 0:
             task_active = False
 
@@ -254,24 +211,29 @@ while game_end == False:
 
 
     if cp < airport_cp_cost[0]:
+        clear_window()
         anim_print(f"""\nYou dont have enough CP for any flights anymore.
 Lets see how your journey has gone: 
 #list shit here#""")
         input()
         game_end = True
-    if loan_shark <=1:
+    if loan_shark <1:
         if balance > 10000:
-            print("You've been caught by the loan shark but you had enough money on you to pay them back.")
+            anim_print("\nYou've been caught by the loan shark but you had enough money on you to pay them back.")
         else:
-            anim_print("You've been caught by the loan shark and got beaten to death...")
+            anim_print("\nYou've been caught by the loan shark and got beaten to death...")
+
         game_end = True
-clear_window()
+    actions_per_airport = 2
+    task_active = True
+
+
 
 
 
 
 # Credits at the end of the game
-anim_print(f"""Credits:  
+anim_print(f"""\nCredits:  
 Elias Eide
 Munttu
 Kasper Paredes Aalto
