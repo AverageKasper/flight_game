@@ -100,31 +100,53 @@ def gambling(money):
                         curr_money -= bet
     return curr_money
 
+# Function for dumpster diving at small airports, returns gained currencies
 def dumpster_dive():
     money = 0
     cp = 0
     
     find = r.randint(1,10)
     if find == 1:
-        pass
+        trash_money = r.randint(50, 200)
+        anim_print(f"\nYou found {trash_money} € from the trash!")
+        money += trash_money
     elif find == 2:
-        pass
+        trash_money = r.randint(50, 200)
+        anim_print(f"\nYou found {trash_money} € from the trash!")
+        money += trash_money
     elif find == 3:
-        pass
+        trash_money = r.randint(50, 200)
+        anim_print(f"\nYou found {trash_money} € from the trash!")
+        money += trash_money
     elif find == 4:
-        pass
+        trash_money = r.randint(50, 200)
+        anim_print(f"\nYou found {trash_money} € from the trash!")
+        money += trash_money
     elif find == 5:
-        pass
+        trash_money = r.randint(50, 200)
+        anim_print(f"\nYou found {trash_money} € from the trash!")
+        money += trash_money
     elif find == 6:
-        pass
+        trash_money = r.randint(50, 200)
+        anim_print(f"\nYou found {trash_money} € from the trash!")
+        money += trash_money
     elif find == 7:
-        pass
+        trash_money = r.randint(50, 200)
+        anim_print(f"\nYou found {trash_money} € from the trash!")
+        money += trash_money
     elif find == 8:
-        pass
+        trash_money = r.randint(50, 200)
+        anim_print(f"\nYou found {trash_money} € from the trash!")
+        money += trash_money
     elif find == 9:
-        pass
+        trash_money = r.randint(50, 200)
+        anim_print(f"\nYou found {trash_money} € from the trash!")
+        money += trash_money
     elif find == 10:
-        pass
+        trash_money = r.randint(50, 200)
+        anim_print(f"\nYou found {trash_money} € from the trash!")
+        money += trash_money
+    return money, cp
 
 
 # Under here should be the last part of code
@@ -184,7 +206,7 @@ while game_end == False:
 """)
             task_choice = int(input("What do you want to do: "))
             if task_choice == 1:
-                dumpster_dive()
+                temp_money, temp_cp = dumpster_dive()
         elif airport_type == "meduim_airport":
             anim_print("No tasks at this airport atm")
         elif airport_type == "large_airport":
@@ -234,6 +256,18 @@ Kasper Paredes Aalto
 Alexander Wolff
 Special thanks to:
 Googling shit
+⠉⠉⠉⣿⡿⠿⠛⠋⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⣻⣩⣉⠉⠉
+⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢀⣀⣀⣀⣀⣀⣀⡀⠄⠄⠉⠉⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣠⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⠄⠄⠄⠄
+⠄⠄⠄⠄⠄⠄⠄⠄⠄⢤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠄⠄⠄
+⡄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠉⠄⠉⠉⠉⣋⠉⠉⠉⠉⠉⠉⠉⠉⠙⠛⢷⡀⠄⠄
+⣿⡄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠠⣾⣿⣷⣄⣀⣀⣀⣠⣄⣢⣤⣤⣾⣿⡀⠄
+⣿⠃⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⣹⣿⣿⡿⠿⣿⣿⣿⣿⣿⣿⣿⣿⢟⢁⣠
+⣿⣿⣄⣀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠉⠉⣉⣉⣰⣿⣿⣿⣿⣷⣥⡀⠉⢁⡥⠈
+⣿⣿⣿⢹⣇⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠒⠛⠛⠋⠉⠉⠛⢻⣿⣿⣷⢀⡭⣤⠄
+⣿⣿⣿⡼⣿⠷⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢀⣀⣠⣿⣟⢷⢾⣊⠄⠄
+⠉⠉⠁⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⣈⣉⣭⣽⡿⠟⢉⢴⣿⡇⣺⣿⣷
+⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠁⠐⢊⣡⣴⣾⣥⣿⣿⣿
 """)
 input()
 
