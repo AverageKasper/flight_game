@@ -35,7 +35,7 @@ def horse_race(money):
 
     bet_amount = int(input("How much do you want to bet? "))
     if bet_amount > money:
-        anim_print("You don't have enough money!\n")
+        anim_print("Broke ass!\n")
         return money
 
     anim_print(f"You placed {bet_amount} euros on {bet_horse}.\n")
