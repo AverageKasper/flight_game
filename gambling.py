@@ -16,7 +16,7 @@ def clear_window():
 
 #Horse racing
 def horse_race(money):
-    horses = ["Diddy", "Halla-Aho", "Sakke", "McQueen", "Trump"]
+    horses = ["Diddy", "Kolovastaava", "Sakke", "Rinne", "Vuoristo"]
     odds = {horse: r.uniform(1.5, 5.0) for horse in horses}  # Generate random odds for each horse
 
     # Show available horses and odds
@@ -58,13 +58,13 @@ def horse_race(money):
     # Determine if the player won or lost
     if bet_horse == winner:
         winnings = bet_amount * odds[bet_horse]
-        anim_print(f"Congratulations! You won {winnings:.2f} euros!\n")
+        anim_print(f"Congratulations! You won {winnings:.0f} euros!\n")
         money += winnings
     else:
-        anim_print(f"Sorry, you lost {bet_amount} euros.\n")
+        anim_print(f"You lost {bet_amount} euros bozo.\n")
         money -= bet_amount
 
-    anim_print(f"Your total balance is now {money:.2f} euros.\n")
+    anim_print(f"Your total balance is now {money} euros.\n")
     return money
 
 
