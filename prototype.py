@@ -16,17 +16,12 @@ con = mysql.connector.connect(
                 collation="utf8mb4_general_ci"
                 )
 
-def anim_print(text, delay=0.0):
-    for char in text:
-        sys.stdout.write(char)  # Write the character without a newline
-        sys.stdout.flush()      # Force it to display immediately
-        time.sleep(delay)       # Pause for the specified delay
-    print()  # Move to the next line after printing the entire text
+
 # Animated print function
-#def anim_print(text):
- #   for char in text:
-  #      print(char, end="", flush=True)
-   #     time.sleep(0.03)
+def anim_print(text):
+    for char in text:
+        print(char, end="", flush=True)
+        time.sleep(0.03)
 
 # Clearing console function
 def clear_window():
@@ -280,6 +275,7 @@ while game_end == False:
 
         # Shit is fucked
 
+
         else: 
             print("how the fuck you get here")
         actions_per_airport -= 1
@@ -353,7 +349,7 @@ input()
 #
 #
 #
+# monke
 #!! GAMBLING DOESNT RETURN CORRECT MONEY
 # monke
-
 
