@@ -22,6 +22,8 @@ def setup_database():
                             option2 VARCHAR(255) NOT NULL,
                             option3 VARCHAR(255) NOT NULL,
                             option4 VARCHAR(255) NOT NULL,
+                            option5 VARCHAR(255) NOT NULL,
+                            option6 VARCHAR(255) NOT NULL,
                             correct_option INT NOT NULL
                         )''')
         conn.commit()
@@ -68,7 +70,9 @@ def insert_questions():
                 ("Who wrote 'Hamlet'?", "Mark Twain", "William Shakespeare", "Charles Dickens", "Leo Tolstoy", 2),
                 ("What is the largest planet in our solar system?", "Earth", "Jupiter", "Saturn", "Mars", 2),
                 ("What is the chemical symbol for water?", "H20", "H2O2", "HO2", "H2O", 4),
-                ("Which year did World War I begin?", "1914", "1918", "1939", "1945", 1)
+                ("Which year did World War I begin?", "1914", "1918", "1939", "1945", 1),
+                ("Which year did world war 2 end?", "1963", "1945", "1933", "1943", 2),
+                ("What is the name of the volcano located near Tokyo, Japan called?", "Mount Fuji", "Mount Yari", "Mount Kita", "Mount Aino", 1),
             ]
 
             # Insert the trivia questions into the 'trivia_questions' table
@@ -112,7 +116,7 @@ def run_trivia_game():
         total_questions = len(questions)
 
         # Set a limit on how many questions to ask (e.g., 5 or all available questions)
-        question_limit = min(3, total_questions)  # Change the number 5 to whatever limit you want
+        question_limit = min(3, total_questions)  # Change the number 3 to whatever limit you want
 
         # Loop through each question (up to the question limit) and present to the player
         for i, question in enumerate(questions[:question_limit], start=1):
@@ -126,7 +130,7 @@ def run_trivia_game():
             # Get the user's answer
             user_answer = input("Your answer (1-4) or 'q' to quit: ")
 
-            # Allow the user to quit by typing 'q'
+
             if user_answer.lower() == 'q':
                 print("You chose to quit the game.")
                 break
@@ -143,18 +147,16 @@ def run_trivia_game():
     except mysql.connector.Error as err:
         print(f"Error: {err}")
     finally:
+        return score
         conn.close()
 
 
 
-def main():
+def main_trivia():
     setup_database()
     clear_questions_table()
-    # Insert questions only if the table is empty
     insert_questions()
+    score = run_trivia_game()
+    return score
 
-    # Run the trivia game
-    run_trivia_game()
 
-
-main()
