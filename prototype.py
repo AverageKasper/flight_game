@@ -284,6 +284,7 @@ while game_end == False:
             break
 
         # Shit is fucked
+
         else: 
             print("how the fuck you get here")
         actions_per_airport -= 1
