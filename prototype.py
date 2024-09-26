@@ -3,26 +3,36 @@ import random as r
 import time
 import os
 import trivia
+import sys
 from gambling import casino
 # Connector does not work straight up, needs your own user and password
 con = mysql.connector.connect(
                 host='localhost',
                 database='flight_game',
-                user='kasper',
-                password='Monkey',
+                user='elias',
+                password='Kesko123',
                 autocommit=True,
                 collation="utf8mb4_general_ci"
                 )
 
-# Animated print function
-def anim_print(text):
+def anim_print(text, delay=0.0):
     for char in text:
-        print(char, end="", flush=True)
-        time.sleep(0.0)
+        sys.stdout.write(char)  # Write the character without a newline
+        sys.stdout.flush()      # Force it to display immediately
+        time.sleep(delay)       # Pause for the specified delay
+    print()  # Move to the next line after printing the entire text
+# Animated print function
+#def anim_print(text):
+ #   for char in text:
+  #      print(char, end="", flush=True)
+   #     time.sleep(0.03)
 
 # Clearing console function
 def clear_window():
-    os.system('cls' if os.name=='nt' else 'clear')
+    os.system('clear')
+
+import subprocess
+subprocess.call('clear' if os.name == 'posix' else 'cls', shell=True)
 
 # Variables
 game_end = False
@@ -192,9 +202,11 @@ while game_end == False:
 """)
             task_choice = int(input("What do you want to do: "))
             if task_choice == 1:
+                print(f"Your balance is {balance} euros ")
                 gambling_balance = casino(balance)
                 balance = gambling_balance
                 loan_shark -= 1
+                print(f"Your balance is {balance} euros after gambling")
             elif task_choice == 2:
                 clear_window()
                 task_active = False
@@ -272,5 +284,5 @@ input()
 #
 #
 #
-#
+# monke
 
