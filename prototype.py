@@ -5,35 +5,27 @@ import os
 import trivia
 import sys
 from gambling import casino
-from random_events import random_events
+#from random_events import random_events
+
 # Connector does not work straight up, needs your own user and password
 con = mysql.connector.connect(
                 host='localhost',
                 database='flight_game',
-                user='elias',
-                password='Kesko123',
+                user='kasper',
+                password='Monkey',
                 autocommit=True,
                 collation="utf8mb4_general_ci"
                 )
 
-def anim_print(text, delay=0.0):
-    for char in text:
-        sys.stdout.write(char)  # Write the character without a newline
-        sys.stdout.flush()      # Force it to display immediately
-        time.sleep(delay)       # Pause for the specified delay
-    print()  # Move to the next line after printing the entire text
 # Animated print function
-#def anim_print(text):
- #   for char in text:
-  #      print(char, end="", flush=True)
-   #     time.sleep(0.03)
+def anim_print(text):
+    for char in text:
+        print(char, end="", flush=True)
+        time.sleep(0.0)
 
 # Clearing console function
 def clear_window():
-    os.system('clear')
-
-import subprocess
-subprocess.call('clear' if os.name == 'posix' else 'cls', shell=True)
+    os.system('cls' if os.name=='nt' else 'clear')
 
 # Variables
 game_end = False
@@ -48,6 +40,19 @@ actions_per_airport = 2
 # What if when you go to a small airport the event counter goes down by 1, medium goes by 2, and large goes by 3. and events are some good some bad, more bad
 event_counter = 6
 loan_shark = 2
+
+# Function to use with inputs changing the inputs to int or asking to type again if it cant be changed to int
+# Useful for preventing crashes
+def int_check(player_input):
+    while player_input is not int:
+        try:
+            player_input = int(player_input)
+        except:
+           player_input =  input("You typed incorrectly, try again: ")
+        else:
+           player_input = int(player_input)
+           break 
+    return player_input
 
 # Function to use with inputs changing the inputs to int or asking to type again if it cant be changed to int
 # Useful for preventing crashes
@@ -140,7 +145,7 @@ def m_airport_task(shark):
 def l_airport_task(current_money,shark):
     large_money = 0
     large_cp = 0
-    total_money = 0
+    total_money = current_money
     total_cp = 0
     actions_left = 2
     while actions_left >0:
@@ -273,16 +278,12 @@ while game_end == False:
         elif airport_type == "large_airport":
             print(f"\ntesti 1 {balance}")
             temp_money,temp_cp,loan_shark = l_airport_task(balance, loan_shark)
-            balance += temp_money
+            balance = temp_money
             cp += temp_cp
             print(f"\ntesti 2 {balance}")
             break
 
         # Shit is fucked
-<<<<<<< HEAD
-=======
-
->>>>>>> 3866ffc4255c31f62ba317a0eef7c57f21bb1ee8
         else: 
             print("how the fuck you get here")
         actions_per_airport -= 1
@@ -357,9 +358,6 @@ input()
 #
 #
 #!! GAMBLING DOESNT RETURN CORRECT MONEY
-<<<<<<< HEAD
-=======
 # monke
 
->>>>>>> 3866ffc4255c31f62ba317a0eef7c57f21bb1ee8
 
