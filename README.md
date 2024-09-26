@@ -38,3 +38,4 @@ _ Dumpster Diving * / small
 - Call mother for allowance
 - You meet a Black market Organ dealer, you can sell your kidney
 - 9/11 2
+- P Diddy encounter
