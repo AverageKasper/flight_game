@@ -284,6 +284,7 @@ while game_end == False:
 
         # Shit is fucked
 
+
         else: 
             print("how the fuck you get here")
         actions_per_airport -= 1
@@ -357,7 +358,7 @@ input()
 #
 #
 #
+# monke
 #!! GAMBLING DOESNT RETURN CORRECT MONEY
 # monke
-
 
