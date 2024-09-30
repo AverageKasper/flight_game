@@ -1,18 +1,8 @@
 import random as r
 import time
-import os
-
-
-# Animated print function
-def anim_print(text):
-    for char in text:
-        print(char, end="", flush=True)
-        time.sleep(0.03)
-
-
-# Clearing console function
-def clear_window():
-    os.system('cls' if os.name == 'nt' else 'clear')
+from utilities import anim_print
+from utilities import clear_window
+from utilities import int_check
 
 #Horse racing
 def horse_race(money):
@@ -64,7 +54,7 @@ def horse_race(money):
         anim_print(f"You lost {bet_amount} euros bozo.\n")
         money -= bet_amount
 
-    anim_print(f"Your total balance is now {money} euros.\n")
+    anim_print(f"Your total balance is now {money:.0f} euros.\n")
     return money
 
 
@@ -159,7 +149,7 @@ def casino(money):
     gameoptions = ["SNAKE EYES", "HILO", "DICE", "BLACKJACK", "HORSE RACING", "RETURN"]
 
     while game_select != gameoptions[5]:
-        game_select = input("Choose a game to play (dice, hilo, snake eyes, blackjack, horse racing) or go back (return): ").upper()
+        game_select = input(anim_print("Choose a game to play (dice, hilo, snake eyes, blackjack, horse racing) or go back (return): ")).upper()
         if game_select not in gameoptions:
             anim_print("Invalid selection\n")
             continue
@@ -224,7 +214,8 @@ def casino(money):
 
             elif game_select==gameoptions[4]:
                 money=horse_race(money)
-
-    return money
+        else:
+            anim_print(f"Your total balance is {money} euros\n")
+            return money
 
 #monke

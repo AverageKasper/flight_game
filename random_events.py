@@ -1,15 +1,8 @@
 import time
-import os
 import random as r
-
-def anim_print(text):
-    for char in text:
-        print(char, end="", flush=True)
-        time.sleep(0.03)
-
-# Clearing console function
-def clear_window():
-    os.system('cls' if os.name=='nt' else 'clear')
+from utilities import int_check
+from utilities import anim_print
+from utilities import clear_window
 
 # Russian roulette function
 def russian_roulette():
@@ -29,7 +22,7 @@ A rough voice speaks at you.
 "Whoever survives gets to walk away"            
 "Lets flip a coin for who goes first"           
 """)
-    coin_flip = input("Heads or tails: ").upper()
+    coin_flip = input(anim_print("Heads or tails: ")).upper()
     coin_flip_result = r.randint(1,2)
     if (coin_flip_result == 1 and coin_flip == "HEADS") or (coin_flip_result == 2 and coin_flip == "TAILS"):
         anim_print("""Player goes first.\n""")
@@ -68,35 +61,43 @@ Shark stares you in the eyes.
 """)
                 player_turn = True
     return player_death
+
+#Event list
+event_list = ["Sausage",
+                "9/11",
+                "Mother",
+                "organ seller",
+                "Loanshark",
+                "Celebrity",
+                ""]
+
+# Random event function, picks one event to be played out from the above list and then removes it from the list
+# Easy to add more events
 def random_event():
-    event_list = ["Sausage",
-                    "9/11",
-                    "Mother",
-                    "organ seller",
-                    "Loanshark",
-                    "Celebrity"]
     event_money = 0
     event_cp = 0
     player_death = False
     roulette_played = False
     kidney = 2
-    event_check = r.randint(0,len(event_list)-1)
     if len(event_list) == 0:
-        return
+        return event_money, event_cp, kidney, player_death, roulette_played
+    event_check = r.randint(0,len(event_list)-1)
+    # Sausage event, just lore
     if "Sausage" == event_list[event_check] :
         anim_print("""You found a person digging through the trash for a sausage.
 Strange people these days.
-""")
-        
+""")    
         event_list.remove("Sausage")
+    # 9/11 event, needs content or to be changed to something else
     elif "9/11" == event_list[event_check]:
         print("9/11")
         event_list.remove("9/11")
+    # Mother event, Mother calls and gives money
     elif "Mother" == event_list[event_check]:
         anim_print("""Your mother is calling you, do you wish to pick up?\n""")
-        call_answer = input("Yes/No: ").upper()
+        call_answer = input(anim_print("Yes/No: ")).upper()
         if call_answer == "YES":
-            mother_money = r.randint(100,300)
+            mother_money = r.randint(300,700)
             anim_print(f"""You picked up the phone.              
 You hear your mothers voice.                
 "Hello my child, i hear you are in a bit of a tight spot."              
@@ -107,49 +108,57 @@ You got {mother_money}€ from your mother.
         else: 
             anim_print("You chose to not pick up.")
         event_list.remove("Mother")
-    # Organ seller event
+    # Organ seller event, You can sell your kidney
     elif "organ seller" == event_list[event_check]:
         anim_print(f"""You meet an black market organ seller.
 He offers to buy your kidney
 Do you accept?
 """)
-        kidney_sold = input("Yes/no: ").upper()
+        kidney_sold = input(anim_print("Yes/no: ")).upper()
         if kidney_sold == "YES":
             kidney_money = r.randint(1500,3500)
             kidney = 1
             anim_print(f"You sold your kidney for {kidney_money}€")
             event_money = kidney_money
         event_list.remove("organ seller")
+    # Russian roulette, The Shark calls you and offers to play a game. Ends game if russian roulette is played
     elif "Loanshark" == event_list[event_check]:
         anim_print("The loanshark is calling you, do you wish to pick up?\n")
-        call_answer = input("Yes/No: ").upper()
+        call_answer = input(anim_print("Yes/No: ")).upper()
+        
         if call_answer == "YES":
             anim_print("""You chose to answer the phone.
 He gives you a choice.
 1. Play russain roulette with him to settle your debt.
 2. Continue the chase.""")
-            choice = int(input("What is your choice: "))
+            choice = input(anim_print("What is your choice: ")) # FIX LATER
+            choice = int_check(choice)
             if choice == 1:
                 anim_print("You chose to play russian roulette.")
                 player_death = russian_roulette()
                 roulette_played = True
             elif choice == 2:
-                anim_print("You declined his offer. The game continues")
-        
+                anim_print("You declined his offer. The chase continues")
         else:
             anim_print("You chose to not pick up.")
             
         event_list.remove("Loanshark")
     
+    # Celebrity event, he throws money around and you pick up some
     elif "Celebrity" == event_list[event_check]:
-        anim_print("""You see a vaguely familiar looking celebrity.
+        celeb_money = r.randint(100, 1000)
+        anim_print(f"""You see a vaguely familiar looking celebrity.
 All of a sudden he starts throwing cash around.
 People rush in to gather as much as they can.
-
+You manage to pick up {celeb_money}€.
 """)
+        event_money += celeb_money
+        event_list.remove("Celebrity")
+    
     # end of random events
     else:
         event_check = r.randint(0,len(event_list)-1)
+    time.sleep(2)
     return event_money, event_cp, kidney, player_death, roulette_played
 
 
