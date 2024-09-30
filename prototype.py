@@ -14,6 +14,8 @@ con = mysql.connector.connect(
                 database='flight_game',
                 user='kasper',
                 password='Monkey',
+                user='kasper',
+                password='Monkey',
                 autocommit=True,
                 collation="utf8mb4_general_ci"
                 )
@@ -25,6 +27,7 @@ balance = 50000
 airport_name = "Helsinki Vantaa Airport"
 airport_country = "FI"
 airport_type = "large_airport"
+cp = 10500
 cp = 10500
 airport_cp_cost = [100,200,500]
 actions_per_airport = 2
@@ -56,6 +59,7 @@ Your next airport options are:
     return next_airport
 
 # Small airport tasks
+# Small airport tasks
 def s_airport_task(shark):
     small_money = 0
     small_cp = 0
@@ -84,6 +88,7 @@ def s_airport_task(shark):
             break
     return small_money, small_cp, shark
 
+# Medium airport tasks
 # Medium airport tasks
 def m_airport_task(shark):
     medium_money = 0
@@ -126,10 +131,12 @@ def m_airport_task(shark):
     return medium_money, medium_cp, shark
 
 # Large airport tasks
+# Large airport tasks
 def l_airport_task(current_money,shark):
     
     large_money = 0
     large_cp = 0
+    total_money = current_money
     total_money = current_money
     total_cp = 0
     actions_left = 2
@@ -147,6 +154,8 @@ def l_airport_task(current_money,shark):
             task_choice = input("Invalid option, try again: ")
             task_choice = int_check(task_choice)
         if task_choice == 1:
+            large_money = casino(total_money)
+            total_money = large_money
             large_money = casino(total_money)
             total_money = large_money
             shark -= 1
@@ -201,6 +210,8 @@ def dumpster_dive():
     elif find == 10:
         anim_print(f"\nYou found a voucher for CP from the trash! You got 200 CP")
         cp += 200
+        anim_print(f"\nYou found a voucher for CP from the trash! You got 200 CP")
+        cp += 200
     return money, cp
 
 
@@ -213,6 +224,7 @@ You have to escape the loanshark by flying away using your Carbon Points(CP).
 
 # Main game loop
 while game_end == False:
+    print(f"Events first test {event_counter}")
     # Change airport part
     small_airport = airport_options("small_airport")
     medium_airport = airport_options("medium_airport")
@@ -280,6 +292,7 @@ while game_end == False:
             break
         elif airport_type == "large_airport":
             temp_money,temp_cp,loan_shark = l_airport_task(balance, loan_shark)
+            balance = temp_money
             balance = temp_money
             cp += temp_cp
             break
@@ -392,6 +405,9 @@ input()
 # List of problems: 
 # Will crash if input is not number
 # anim_print works but you can still use the next input before it finishes, kind of a non-issue but if can be looked at  
+# Random event doesnt remove played events from the list, maybe the list needs to be in the main script, kinda dirty but would work or im dumb
+#
+
 # Random event doesnt remove played events from the list, maybe the list needs to be in the main script, kinda dirty but would work or im dumb
 #
 
