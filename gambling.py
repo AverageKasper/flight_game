@@ -16,7 +16,7 @@ def clear_window():
 
 #Horse racing
 def horse_race(money):
-    horses = ["Diddy", "Kolovastaava", "Sakke", "Rinne", "Vuoristo"]
+    horses = ["Diddy", "Kolovastaava", "Sakke", "Rinne", "Uusitalo"]
     odds = {horse: r.uniform(1.5, 5.0) for horse in horses}  # Generate random odds for each horse
 
     # Show available horses and odds

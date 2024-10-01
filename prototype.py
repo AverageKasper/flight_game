@@ -280,7 +280,7 @@ input()
 # List of problems: 
 # Will crash if input is not number
 # anim_print works but you can still use the next input before it finishes, kind of a non-issue but if can be looked at  
-# If player doesnt have enough CP to a airport the code will randomize the choises again, maybe problem, maybe not
+# If player doesnt have enough CP to a airport the code will randomize the choices again, maybe problem, maybe not
 #
 #
 #
