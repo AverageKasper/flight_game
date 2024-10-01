@@ -155,6 +155,7 @@ def blackjack(money):
 # Casino function with Blackjack
 def casino(money):
     game_select = ""
+
     gameoptions = ["SNAKE EYES", "HILO", "DICE", "BLACKJACK", "HORSE RACING", "RETURN"]
 
     while game_select != gameoptions[5]:
