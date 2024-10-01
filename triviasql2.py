@@ -22,8 +22,6 @@ def setup_database():
                             option2 VARCHAR(255) NOT NULL,
                             option3 VARCHAR(255) NOT NULL,
                             option4 VARCHAR(255) NOT NULL,
-                            option5 VARCHAR(255) NOT NULL,
-                            option6 VARCHAR(255) NOT NULL,
                             correct_option INT NOT NULL
                         )''')
         conn.commit()
@@ -73,6 +71,23 @@ def insert_questions():
                 ("Which year did World War I begin?", "1914", "1918", "1939", "1945", 1),
                 ("Which year did world war 2 end?", "1963", "1945", "1933", "1943", 2),
                 ("What is the name of the volcano located near Tokyo, Japan called?", "Mount Fuji", "Mount Yari", "Mount Kita", "Mount Aino", 1),
+                ("Who sang the title song for the latest Bond film, No Time to Die?", "Adele", "Sam Smith", "Billie Eilish", "Michael Jackson", 3),
+                ("Which flies a green, white, and orange (in that order) tricolor flag? ", "ireland", "Ivory Coast", "Italy", "India", 1),
+                ("What company makes the Xperia model of smartphone?", "samsung", "sony", "Nokia", "Apple", 2),
+                ("Which city is home to the Brandenburg Gate?", "Vienna", "Zurich", "Berlin", "Frankfurt", 3),
+                ("Which of the following is NOT a fruit?", "Rhubarb", "Tomatoes", "Avocados", "Potatoes", 1),
+                ("Where was the first example of paper money used?", "China", "Turkey", "Greece", "Japan", 1),
+                ("Who is generally considered the inventor of the motor car?", "Henry Ford", "Karl Benz", "Henry M. Leland", "Gottlieb Daimler", 2),
+                ("If you were looking at Iguazu Falls, on what continent would you be?", "Asia", "Africa", "South America", "North America", 3),
+                ("What number was the Apollo mission that successfully put a man on the moon for the first time in human history?", "Apollo 12", "Apollo 11", "Apollo 13", "Apollo 9", 2),
+                ("Which of the following languages has the longest alphabet?", "Greek", "Russian", "Arabic", "Chinese", 2),
+                ("Who was the lead singer of the band The Who?", "Roger Daltrey", "Don Henley", "Robert Plant", "Bob Geldof", 1),
+                ("What spirit is used in making a Tom Collins?", "Vodka", "Rum", "Gin", "tequila", 3),
+                ("The fear of insects is known as what?", "Entomophobia", "Arachnophobia", "Ailurophobia", "Arachibutyrophobia", 1),
+                ("What was the name of the Franco-British supersonic commercial plane that operated from 1976-2003?", "Accord", "Mirage", "Concorde", "The Voyager", 3),
+                ("Which horoscope sign is a fish?", "Seahorse", "Aquarius", "Cancer", "Pisces", 4),
+                ("What is the largest US state (by landmass)?", "Texas", "California", "Florida", "Alaska", 4),
+
             ]
 
             # Insert the trivia questions into the 'trivia_questions' table
