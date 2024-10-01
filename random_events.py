@@ -69,7 +69,8 @@ event_list = ["Sausage",
                 "organ seller",
                 "Loanshark",
                 "Celebrity",
-                ""]
+                "Burning hand",
+                "Poolparty"]
 
 # Random event function, picks one event to be played out from the above list and then removes it from the list
 # Easy to add more events
@@ -154,8 +155,20 @@ You manage to pick up {celeb_money}€.
 """)
         event_money += celeb_money
         event_list.remove("Celebrity")
-    
+    elif "Burning hand" == event_list[event_check]:
+        burning_money = r.randint(200,700)
+        anim_print(f"""You burn your hand in an accident.
+The medical bills cost {burning_money}€.
+Tough luck.""")
+        event_money -= burning_money
+        event_list.remove("Burning hand")
     # end of random events
+    elif "Poolparty" == event_list[event_check]:
+        pool_money = r.randint(123,567)
+        anim_print(f"""You are in a good mood.
+You decide to throw a pool party at the airports lounge.
+It cost you {pool_money}€. """)
+        event_money -= pool_money
     else:
         event_check = r.randint(0,len(event_list)-1)
     time.sleep(2)

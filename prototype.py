@@ -56,7 +56,6 @@ Your next airport options are:
     return next_airport
 
 # Small airport tasks
-# Small airport tasks
 def s_airport_task(shark):
     small_money = 0
     small_cp = 0
@@ -85,7 +84,6 @@ def s_airport_task(shark):
             break
     return small_money, small_cp, shark
 
-# Medium airport tasks
 # Medium airport tasks
 def m_airport_task(shark):
     medium_money = 0
@@ -127,13 +125,12 @@ def m_airport_task(shark):
             break
     return medium_money, medium_cp, shark
 
-# Large airport tasks
+
 # Large airport tasks
 def l_airport_task(current_money,shark):
 
     large_money = 0
     large_cp = 0
-    total_money = current_money
     total_money = current_money
     total_cp = 0
     actions_left = 2
@@ -396,13 +393,8 @@ input()
 # Make more tasks
 #
 #
-# List of problems:
-# Will crash if input is not number
-# anim_print works but you can still use the next input before it finishes, kind of a non-issue but if can be looked at
-# Random event doesnt remove played events from the list, maybe the list needs to be in the main script, kinda dirty but would work or im dumb
+# List of problems: 
 #
-
-# Random event doesnt remove played events from the list, maybe the list needs to be in the main script, kinda dirty but would work or im dumb
 #
-
-
+#___________________________________________________________
+# Check duplicate lines = cntr + f > .* > ^(.*)(\n\1)+$ 
