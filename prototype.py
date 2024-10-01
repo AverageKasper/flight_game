@@ -15,8 +15,8 @@ from utilities import int_check
 con = mysql.connector.connect(
                 host='localhost',
                 database='flight_game',
-                user='kasper',
-                password='Monkey',
+                user='elias',
+                password='Kesko123',
                 autocommit=True,
                 collation="utf8mb4_general_ci"
                 )
@@ -119,6 +119,9 @@ def m_airport_task(shark):
                 medium_money = 1000
                 medium_cp = 500
                 anim_print(f"You got {medium_money}€ and a Voucher for {medium_cp}CP!")
+            elif trivia_score ==0:
+                medium_money-=1000
+                anim_print(f"You lost {medium_money}€ stupid ass ")
 
             shark -= 1
             total_money += medium_money
@@ -203,8 +206,6 @@ def dumpster_dive():
         anim_print(f"\nHUGE!! You found {trash_money} € from the trash!")
         money += trash_money
     elif find == 10:
-        anim_print(f"\nYou found a voucher for CP from the trash! You got 200 CP")
-        cp += 200
         anim_print(f"\nYou found a voucher for CP from the trash! You got 200 CP")
         cp += 200
     return money, cp

@@ -7,8 +7,8 @@ def setup_database():
         conn = mysql.connector.connect(
             host='localhost',
             database='flight_game',
-            user='root',
-            password='K1rahV1!',
+            user='elias',
+            password='Kesko123',
             autocommit=True,
             collation="utf8mb4_general_ci"
         )
@@ -34,8 +34,8 @@ def clear_questions_table():
     conn = mysql.connector.connect(
         host='localhost',
         database='flight_game',
-        user='root',
-        password='K1rahV1!',
+        user='elias',
+        password='Kesko123',
         autocommit=True,
         collation="utf8mb4_general_ci"
     )
@@ -50,8 +50,8 @@ def insert_questions():
         conn = mysql.connector.connect(
             host='localhost',
             database='flight_game',
-            user='root',
-            password='K1rahV1!',
+            user='elias',
+            password='Kesko123',
             autocommit=True,
             collation="utf8mb4_general_ci"
         )
@@ -91,6 +91,7 @@ def insert_questions():
                 ("Which Game of Thrones character is known as the Young Wolf?", "Robb Stark", "Arya Stark", "Sansa Stark", "Bran Stark", 1),
                 ("What city hosted the 2002 Olympic Games?", "Tokyo", "Paris", "Beijing", "Sydney", 4),
                 ("How many plays do people (generally) believe that Shakespeare wrote?", "47", "27", "57", "37", 4),
+                ("Who visited Epstein island?", "P.Diddy", "Stephen Hawking", "Trump", "All of them", 4)
 
 
             ]
@@ -114,8 +115,8 @@ def run_trivia_game():
         conn = mysql.connector.connect(
             host='localhost',
             database='flight_game',
-            user='root',
-            password='K1rahV1!',
+            user='elias',
+            password='Kesko123',
             autocommit=True,
             collation="utf8mb4_general_ci"
         )
