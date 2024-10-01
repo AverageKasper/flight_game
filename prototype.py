@@ -396,5 +396,7 @@ input()
 # List of problems: 
 #
 #
+
+#monke
 #___________________________________________________________
 # Check duplicate lines = cntr + f > .* > ^(.*)(\n\1)+$ 
