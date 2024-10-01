@@ -91,7 +91,7 @@ def insert_questions():
                 ("Which Game of Thrones character is known as the Young Wolf?", "Robb Stark", "Arya Stark", "Sansa Stark", "Bran Stark", 1),
                 ("What city hosted the 2002 Olympic Games?", "Tokyo", "Paris", "Beijing", "Sydney", 4),
                 ("How many plays do people (generally) believe that Shakespeare wrote?", "47", "27", "57", "37", 4),
-                ("")
+
 
             ]
 
