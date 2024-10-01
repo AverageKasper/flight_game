@@ -1,11 +1,16 @@
 import mysql.connector
 import random as r
 import time
-import os
-import trivia
-import sys
+from triviasql2 import main_trivia
 from gambling import casino
-from random_events import random_events
+from random_events import random_event
+from utilities import anim_print
+from utilities import clear_window
+from utilities import int_check
+from utilities import anim_print
+from utilities import clear_window
+from utilities import int_check
+
 # Connector does not work straight up, needs your own user and password
 con = mysql.connector.connect(
                 host='localhost',
@@ -16,20 +21,6 @@ con = mysql.connector.connect(
                 collation="utf8mb4_general_ci"
                 )
 
-
-# Animated print function
-def anim_print(text):
-    for char in text:
-        print(char, end="", flush=True)
-        time.sleep(0.03)
-
-# Clearing console function
-def clear_window():
-    os.system('clear')
-
-import subprocess
-subprocess.call('clear' if os.name == 'posix' else 'cls', shell=True)
-
 # Variables
 game_end = False
 command = ""
@@ -37,25 +28,15 @@ balance = 50000
 airport_name = "Helsinki Vantaa Airport"
 airport_country = "FI"
 airport_type = "large_airport"
-cp = 1500
+cp = 10500
 airport_cp_cost = [100,200,500]
 actions_per_airport = 2
 # What if when you go to a small airport the event counter goes down by 1, medium goes by 2, and large goes by 3. and events are some good some bad, more bad
+kidney = 2
 event_counter = 6
 loan_shark = 2
+airports_travelled = 0
 
-# Function to use with inputs changing the inputs to int or asking to type again if it cant be changed to int
-# Useful for preventing crashes
-def int_check(player_input):
-    while player_input is not int:
-        try:
-            player_input = int(player_input)
-        except:
-           player_input =  input("You typed incorrectly, try again: ")
-        else:
-           player_input = int(player_input)
-           break 
-    return player_input
 # Airport moving
 def airport_options(type):
     sql = f"select name, iso_country, type from airport where type = '{type}' and name not like 'CLICK%' order by rand() limit 1;"
@@ -65,27 +46,36 @@ def airport_options(type):
     return list[0]
 
 # Function for next airport
-def airport_chooser():
+def airport_chooser(cod_points, euro,shark):
     anim_print (f"""\nYou are at {airport_name},{airport_country}.
+You have {cod_points}CP left and {euro}€ in the bank.
+The shark is {shark} airports behind...
 Your next airport options are:
 1. {small_airport[0]}, {small_airport[1]}: 100CP
 2. {medium_airport[0]}, {medium_airport[1]}: 200CP
 3. {large_airport[0]}, {large_airport[1]}: 500CP""")
-    next_airport = int(input("\nSelect airport number: "))
+    next_airport = input(anim_print("\nSelect airport number: "))
+    next_airport= int_check(next_airport)
     return next_airport
 
-
+# Small airport tasks
 def s_airport_task(shark):
     small_money = 0
     small_cp = 0
     actions_left = 2
     while actions_left > 0:
+        anim_print(f"\nthe Shark is {shark} airports behind...")
         anim_print(f"""\nThings to do at this airport:
 1. Dumpster dive
 2. Go to the next airport
 """)
-        task_choice = input("What do you want to do: ")
+        task_choice = input(anim_print("What do you want to do: "))
         task_choice = int_check(task_choice)
+        # Checks if task_choice is  valid
+        while task_choice != 1 and task_choice != 2:
+            task_choice = input("Invalid option, try again: ")
+            task_choice = int_check(task_choice)
+            
         if task_choice == 1:
             temp_money, temp_cp  = dumpster_dive()
             small_money += temp_money
@@ -95,9 +85,9 @@ def s_airport_task(shark):
         elif task_choice == 2:
             clear_window()
             break
-        anim_print(f"\nthe loan shark is {shark} airports behind...")
     return small_money, small_cp, shark
 
+# Medium airport tasks
 def m_airport_task(shark):
     medium_money = 0
     medium_cp = 0
@@ -105,24 +95,33 @@ def m_airport_task(shark):
     total_cp = 0
     actions_left = 2
     while actions_left >0:
+        anim_print(f"\nthe Shark is {loan_shark} airports behind...")
         anim_print(f"""\nThings to do at this airport:
 1. Trivia
 2. Go to the next airport
 """)
-        task_choice = input("What do you want to do: ")
+        task_choice = input(anim_print("What do you want to do: "))
         task_choice = int_check(task_choice)
+        # Checks if task_choice is  valid
+        while task_choice != 1 and task_choice != 2:
+            task_choice = input("Invalid option, try again: ")
+            task_choice = int_check(task_choice)
+        
         if task_choice == 1:
-            trivia_score = trivia.trivia_game()
+            trivia_score = main_trivia()
             if trivia_score == 1:
-                medium_money = 150
-                anim_print(f"You got {medium_money}€")
-            elif trivia_score == 2:
                 medium_money = 300
                 anim_print(f"You got {medium_money}€")
-            elif trivia_score == 3:
+            elif trivia_score == 2:
                 medium_money = 600
-                medium_cp = 250
+                anim_print(f"You got {medium_money}€")
+            elif trivia_score == 3:
+                medium_money = 1000
+                medium_cp = 500
                 anim_print(f"You got {medium_money}€ and a Voucher for {medium_cp}CP!")
+            elif trivia_score ==0:
+                medium_money-=1000
+                anim_print(f"You lost {medium_money}€ stupid ass ")
 
             shark -= 1
             total_money += medium_money
@@ -132,24 +131,33 @@ def m_airport_task(shark):
             break
     return medium_money, medium_cp, shark
 
+
+# Large airport tasks
 def l_airport_task(current_money,shark):
+    
     large_money = 0
     large_cp = 0
-    total_money = 0
+    total_money = current_money
     total_cp = 0
     actions_left = 2
     while actions_left >0:
+        anim_print(f"\nthe Shark is {loan_shark} airports behind...")
         anim_print(f"""\nThings to do at this airport:
 1. Gamble
 2. Go to the next airport
 """)
-        task_choice = int(input("What do you want to do: "))
+        task_choice = input(anim_print("What do you want to do: "))
+        task_choice = int_check(task_choice)
+
+        # Checks if task_choice is  valid
+        while task_choice != 1 and task_choice != 2:
+            task_choice = input("Invalid option, try again: ")
+            task_choice = int_check(task_choice)
         if task_choice == 1:
-            print(f"\ntesti 3 {balance}")
-            total_money = casino(current_money)
+            large_money = casino(total_money)
+            total_money = large_money
             shark -= 1
             actions_left -= 1
-            print(f"\ntesti 4 {balance}")
         elif task_choice == 2:
             clear_window()
             break
@@ -194,13 +202,12 @@ def dumpster_dive():
         anim_print(f"\nYou found {trash_money} € from the trash!")
         money += trash_money
     elif find == 9:
-        trash_money = r.randint(50, 200)
-        anim_print(f"\nYou found {trash_money} € from the trash!")
+        trash_money = r.randint(300, 500)
+        anim_print(f"\nHUGE!! You found {trash_money} € from the trash!")
         money += trash_money
     elif find == 10:
-        trash_money = r.randint(50, 200)
-        anim_print(f"\nYou found {trash_money} € from the trash!")
-        money += trash_money
+        anim_print(f"\nYou found a voucher for CP from the trash! You got 200 CP")
+        cp += 200
     return money, cp
 
 
@@ -213,13 +220,14 @@ You have to escape the loanshark by flying away using your Carbon Points(CP).
 
 # Main game loop
 while game_end == False:
+    print(f"Events first test {event_counter}")
     # Change airport part
     small_airport = airport_options("small_airport")
     medium_airport = airport_options("medium_airport")
     large_airport = airport_options("large_airport")
     
     # Go to airport choosing function 
-    next_airport = airport_chooser()
+    next_airport = airport_chooser(cp,balance,loan_shark)
     
     # Check what airport was chosen
     if next_airport == 1:
@@ -229,6 +237,8 @@ while game_end == False:
         else:
             airport_name, airport_country, airport_type= small_airport[0], small_airport[1], small_airport[2]
             cp -= airport_cp_cost[0]
+            event_counter -= 1
+            airports_travelled += 1
     elif next_airport == 2:
         if cp < airport_cp_cost[1]:
             anim_print("You dont have enough CP.")
@@ -236,6 +246,8 @@ while game_end == False:
         else:
             airport_name, airport_country, airport_type= medium_airport[0], medium_airport[1], medium_airport[2]
             cp -= airport_cp_cost[1]
+            event_counter -= 2
+            airports_travelled += 1
     elif next_airport == 3:
         if cp < airport_cp_cost[2]:
             anim_print("You dont have enough CP.")
@@ -243,17 +255,26 @@ while game_end == False:
         else:
             airport_name, airport_country, airport_type = large_airport[0], large_airport[1], large_airport[2]
             cp -= airport_cp_cost[2]
+            event_counter -= 3
+            airports_travelled += 1
+
     # For testing, at selection input 4 to stop game
     elif next_airport == 4:
         game_end = True
         break
-    anim_print(f"You have {cp}CP left.")
-    anim_print(f"You have {balance}€")
+    else:
+        cp -= airport_cp_cost[2]
+        event_counter -= 3
+    clear_window()
+    
     loan_shark += 1
+
     # Task loop
     while actions_per_airport !=0:
 
         anim_print(f"\nYou are at {airport_name}, {airport_country}")
+        anim_print(f"\nYou have {cp}CP left.\n")
+        anim_print(f"You have {balance}€.")
         # Goes to small airport task function
         if airport_type == "small_airport":
             temp_money,temp_cp,loan_shark = s_airport_task(loan_shark)
@@ -266,51 +287,88 @@ while game_end == False:
             cp += temp_cp
             break
         elif airport_type == "large_airport":
-            print(f"\ntesti 1 {balance}")
             temp_money,temp_cp,loan_shark = l_airport_task(balance, loan_shark)
-            balance += temp_money
+            balance = temp_money
             cp += temp_cp
-            print(f"\ntesti 2 {balance}")
             break
 
         # Shit is fucked
-
-
         else: 
             print("how the fuck you get here")
         actions_per_airport -= 1
         
         if actions_per_airport == 0:
             break
-
-
-    anim_print(f"\nthe loan shark is {loan_shark} airports behind...")
-
-
+    
     if cp < airport_cp_cost[0]:
         clear_window()
-        anim_print(f"""\nYou dont have enough CP for any flights anymore.
-Lets see how your journey has gone: 
-#list shit here#""")
+        anim_print(f"""\nYou have run out of CP to continue flying.
+                   """)
+        
         input()
         game_end = True
+        if balance > 10000:
+            pass
     if loan_shark <1:
         if balance > 10000:
-            anim_print("\nYou've been caught by the loan shark but you had enough money on you to pay them back.")
+            anim_print("""\nYou've been caught by the Shark.
+Throughout your journey you have managed to gather enough money to pay him back.
+GOOD ENDING
+""")
+            
         else:
-            anim_print("\nYou've been caught by the loan shark and got beaten to death...")
+            anim_print("""\nYou've been caught by the Shark.
+You did not manage to gather enough money on time.
+You got beaten up by the Shark and put in jail for life.
+BAD ENDING
+""")
 
         game_end = True
     actions_per_airport = 2
     task_active = True
 
+    # Random event part
+    if event_counter <= 0:
+        event_money, event_cp, kidney, player_death, roulette_played = random_event()
+        balance += event_money
+        cp += event_cp
+
+        # Results of russian roulette if played
+        if roulette_played == True:
+
+            # Ending lore for the russian roulette, if the player dies
+            if player_death == True:
+                anim_print("""You died during your game of russian roulette.
+Your body was never found. 
+BRUTAL ENDING
+""")
+                time.sleep(3)
+                break
+
+            # Ending lore for the russian roulette, if the player surrvives
+            elif player_death == False:
+                anim_print("""The Shark died during the game of russian roulette.
+You got free of your debt and inherited the sharks loan business.
+You found a list of names in the office.
+Time to go hunting.
+VILLAIN ENDING
+""")
+                time.sleep(3)
+                break
+        event_counter = 6
 
 
-
-
+anim_print(f"""Stats:
+Your money: {balance}€
+Your Carbon points: {cp}CP
+Total airports travelled: {airports_travelled}
+Your kidneys: {kidney}
+""")
+input()
+clear_window()
 
 # Credits at the end of the game
-anim_print(f"""\nCredits:  
+anim_print(f"""Credits:  
 Elias Eide
 Munttu
 Kasper Paredes Aalto
@@ -337,19 +395,10 @@ input()
 
 # List of shit to do:
 # Make more tasks
-# Rewrite gambling(See alex) 
-# See what else can be done with SQL(See munttu)
-# Make Loanshark chasing 
 # 
 #
 # List of problems: 
-# Will crash if input is not number
-# anim_print works but you can still use the next input before it finishes, kind of a non-issue but if can be looked at  
-# If player doesnt have enough CP to a airport the code will randomize the choices again, maybe problem, maybe not
 #
 #
-#
-# monke
-#!! GAMBLING DOESNT RETURN CORRECT MONEY
-# monke
-
+#___________________________________________________________
+# Check duplicate lines = cntr + f > .* > ^(.*)(\n\1)+$ 
