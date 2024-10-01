@@ -87,6 +87,11 @@ def insert_questions():
                 ("What was the name of the Franco-British supersonic commercial plane that operated from 1976-2003?", "Accord", "Mirage", "Concorde", "The Voyager", 3),
                 ("Which horoscope sign is a fish?", "Seahorse", "Aquarius", "Cancer", "Pisces", 4),
                 ("What is the largest US state (by landmass)?", "Texas", "California", "Florida", "Alaska", 4),
+                ("Which app has the most total users?", "Tik Tok", "Snapchat", "Instagram", "Facebook", 3),
+                ("Which Game of Thrones character is known as the Young Wolf?", "Robb Stark", "Arya Stark", "Sansa Stark", "Bran Stark", 1),
+                ("What city hosted the 2002 Olympic Games?", "Tokyo", "Paris", "Beijing", "Sydney", 4),
+                ("How many plays do people (generally) believe that Shakespeare wrote?", "47", "27", "57", "37", 4),
+                ("")
 
             ]
 

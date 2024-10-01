@@ -2,10 +2,9 @@ import mysql.connector
 import random as r
 import time
 import os
-import trivia
-import sys
+from triviasql2 import main_trivia
 from gambling import casino
-from random_events import random_events
+#from random_events import random_events
 # Connector does not work straight up, needs your own user and password
 con = mysql.connector.connect(
                 host='localhost',
@@ -20,7 +19,7 @@ con = mysql.connector.connect(
 def anim_print(text):
     for char in text:
         print(char, end="", flush=True)
-        time.sleep(0.0)
+        time.sleep(0.01)
 
 # Clearing console function
 def clear_window():
@@ -108,7 +107,7 @@ def m_airport_task(shark):
         task_choice = input("What do you want to do: ")
         task_choice = int_check(task_choice)
         if task_choice == 1:
-            trivia_score = trivia.trivia_game()
+            trivia_score = main_trivia()
             if trivia_score == 1:
                 medium_money = 150
                 anim_print(f"You got {medium_money}€")
