@@ -14,8 +14,6 @@ con = mysql.connector.connect(
                 database='flight_game',
                 user='kasper',
                 password='Monkey',
-                user='kasper',
-                password='Monkey',
                 autocommit=True,
                 collation="utf8mb4_general_ci"
                 )
@@ -27,7 +25,6 @@ balance = 50000
 airport_name = "Helsinki Vantaa Airport"
 airport_country = "FI"
 airport_type = "large_airport"
-cp = 10500
 cp = 10500
 airport_cp_cost = [100,200,500]
 actions_per_airport = 2
@@ -76,7 +73,7 @@ def s_airport_task(shark):
         while task_choice != 1 and task_choice != 2:
             task_choice = input("Invalid option, try again: ")
             task_choice = int_check(task_choice)
-            
+
         if task_choice == 1:
             temp_money, temp_cp  = dumpster_dive()
             small_money += temp_money
@@ -108,7 +105,7 @@ def m_airport_task(shark):
         while task_choice != 1 and task_choice != 2:
             task_choice = input("Invalid option, try again: ")
             task_choice = int_check(task_choice)
-        
+
         if task_choice == 1:
             trivia_score = trivia.trivia_game()
             if trivia_score == 1:
@@ -133,7 +130,7 @@ def m_airport_task(shark):
 # Large airport tasks
 # Large airport tasks
 def l_airport_task(current_money,shark):
-    
+
     large_money = 0
     large_cp = 0
     total_money = current_money
@@ -156,8 +153,6 @@ def l_airport_task(current_money,shark):
         if task_choice == 1:
             large_money = casino(total_money)
             total_money = large_money
-            large_money = casino(total_money)
-            total_money = large_money
             shark -= 1
             actions_left -= 1
         elif task_choice == 2:
@@ -169,7 +164,7 @@ def l_airport_task(current_money,shark):
 def dumpster_dive():
     money = 0
     cp = 0
-    
+
     find = r.randint(1,10)
     if find == 1:
         trash_money = r.randint(50, 200)
@@ -229,10 +224,10 @@ while game_end == False:
     small_airport = airport_options("small_airport")
     medium_airport = airport_options("medium_airport")
     large_airport = airport_options("large_airport")
-    
-    # Go to airport choosing function 
+
+    # Go to airport choosing function
     next_airport = airport_chooser(cp,balance,loan_shark)
-    
+
     # Check what airport was chosen
     if next_airport == 1:
         if cp < airport_cp_cost[0]:
@@ -270,7 +265,7 @@ while game_end == False:
         cp -= airport_cp_cost[2]
         event_counter -= 3
     clear_window()
-    
+
     loan_shark += 1
 
     # Task loop
@@ -293,23 +288,22 @@ while game_end == False:
         elif airport_type == "large_airport":
             temp_money,temp_cp,loan_shark = l_airport_task(balance, loan_shark)
             balance = temp_money
-            balance = temp_money
             cp += temp_cp
             break
 
         # Shit is fucked
-        else: 
+        else:
             print("how the fuck you get here")
         actions_per_airport -= 1
-        
+
         if actions_per_airport == 0:
             break
-    
+
     if cp < airport_cp_cost[0]:
         clear_window()
         anim_print(f"""\nYou have run out of CP to continue flying.
                    """)
-        
+
         input()
         game_end = True
         if balance > 10000:
@@ -320,7 +314,7 @@ while game_end == False:
 Throughout your journey you have managed to gather enough money to pay him back.
 GOOD ENDING
 """)
-            
+
         else:
             anim_print("""\nYou've been caught by the Shark.
 You did not manage to gather enough money on time.
@@ -400,11 +394,11 @@ input()
 
 # List of shit to do:
 # Make more tasks
-# 
 #
-# List of problems: 
+#
+# List of problems:
 # Will crash if input is not number
-# anim_print works but you can still use the next input before it finishes, kind of a non-issue but if can be looked at  
+# anim_print works but you can still use the next input before it finishes, kind of a non-issue but if can be looked at
 # Random event doesnt remove played events from the list, maybe the list needs to be in the main script, kinda dirty but would work or im dumb
 #
 
