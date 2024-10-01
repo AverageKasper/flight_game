@@ -1,7 +1,7 @@
 import mysql.connector
 import random as r
 import time
-import trivia
+from triviasql2 import main_trivia
 from gambling import casino
 from random_events import random_event
 from utilities import anim_print
@@ -108,7 +108,7 @@ def m_airport_task(shark):
             task_choice = int_check(task_choice)
         
         if task_choice == 1:
-            trivia_score = trivia.trivia_game()
+            trivia_score = main_trivia()
             if trivia_score == 1:
                 medium_money = 300
                 anim_print(f"You got {medium_money}€")
