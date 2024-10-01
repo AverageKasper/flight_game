@@ -7,6 +7,9 @@ from random_events import random_event
 from utilities import anim_print
 from utilities import clear_window
 from utilities import int_check
+from utilities import anim_print
+from utilities import clear_window
+from utilities import int_check
 
 # Connector does not work straight up, needs your own user and password
 con = mysql.connector.connect(
@@ -125,8 +128,10 @@ def m_airport_task(shark):
             break
     return medium_money, medium_cp, shark
 
+
 # Large airport tasks
 def l_airport_task(current_money,shark):
+    
     large_money = 0
     large_cp = 0
     total_money = current_money
