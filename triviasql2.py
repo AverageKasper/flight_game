@@ -1,4 +1,5 @@
 import mysql.connector
+from utilities import conn
 import random
 
 # Step 1: Connect to the existing flight_game database and create the trivia table
@@ -7,8 +8,8 @@ def setup_database():
         conn = mysql.connector.connect(
             host='localhost',
             database='flight_game',
-            user='root',
-            password='K1rahV1!',
+            user='kasper',
+            password='Monkey',
             autocommit=True,
             collation="utf8mb4_general_ci"
         )
@@ -34,8 +35,8 @@ def clear_questions_table():
     conn = mysql.connector.connect(
         host='localhost',
         database='flight_game',
-        user='root',
-        password='K1rahV1!',
+        user='kasper',
+        password='Monkey',
         autocommit=True,
         collation="utf8mb4_general_ci"
     )
@@ -50,8 +51,8 @@ def insert_questions():
         conn = mysql.connector.connect(
             host='localhost',
             database='flight_game',
-            user='root',
-            password='K1rahV1!',
+            user='kasper',
+            password='Monkey',
             autocommit=True,
             collation="utf8mb4_general_ci"
         )
@@ -111,14 +112,6 @@ def insert_questions():
 # Step 3: Retrieve questions from the 'trivia_questions' table and run the trivia game
 def run_trivia_game():
     try:
-        conn = mysql.connector.connect(
-            host='localhost',
-            database='flight_game',
-            user='root',
-            password='K1rahV1!',
-            autocommit=True,
-            collation="utf8mb4_general_ci"
-        )
         cursor = conn.cursor()
 
         # Retrieve all trivia questions
@@ -178,5 +171,4 @@ def main_trivia():
     insert_questions()
     score = run_trivia_game()
     return score
-
-
+main_trivia()
