@@ -1,6 +1,4 @@
 from operator import truediv
-
-from triviasql2 import setup_database
 from utilities import anim_print
 import time
 import random
@@ -91,11 +89,11 @@ def start_fighting(salvia_mode=False):
 
 cigarette_brands = [
         "MARLBORO RED", "MARLBORO GOLD", "WEST BLUE", "JOHN PLAYER SPECIAL",
-        "SALVIA JOINT",]
-def smoking_action(money):
+        "SALVIA JOINT", "AMERICAN BLACK"]
+def smoking_action():
+    money = 0
     for brand in cigarette_brands:
      anim_print(brand + "\n")
-
     cig=input(anim_print("You are at 7eleven, choose your delicacy: \n")).upper()
     if cig==cigarette_brands[3]:
         anim_print("You start enjoying your pack of cigarettes\n")
@@ -122,7 +120,7 @@ def smoking_action(money):
         anim_print("You chose Marlboro Red, a classic choice\n")
         time.sleep(2)
         anim_print("While smoking you start talking to a Japanese businessman\n")
-        businessman=input(anim_print("The businessman offers you 1000€\n")).upper()
+        businessman=input(anim_print("The businessman offers you 1000€. Do you accept: \n")).upper()
         if businessman=="YES":
          money+=1000
          anim_print(f"Your balance now is {money}€\n")
@@ -145,7 +143,12 @@ def smoking_action(money):
         time.sleep(1)
         anim_print("Due to your low money choice a group of guys come up to you and mock you for choosing West Blue.\n")
         time.sleep(1)
-        anim_print("You start feeling sad and stop smoking\n")
+        anim_print("They feel so bad for you that they give you money")
+        random_money=random.randint(100, 300)
+        time.sleep(0.5)
+        anim_print(f"You got {random_money}")
+        money+=random_money
+
 
     elif cig==cigarette_brands[4]:
         anim_print("You chose the Salvia Joint.\n")
@@ -157,15 +160,9 @@ def smoking_action(money):
         anim_print("You attack a single mother while still being under the influence \n")
         start_fighting(salvia_mode=True)
 
+    elif cig==cigarette_brands[5]:
+        anim_print("You chose American Black, strong choice\n")
+        time.sleep(1)
+        anim_print("You start smoking \n")
 
-
-
-
-
-
-
-mone = 10
-
-
-monke = smoking_action(mone)
-print=(monke)
+    return money

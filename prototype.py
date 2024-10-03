@@ -1,5 +1,6 @@
 import random as r
 import time
+
 import mysql.connector
 #Task Scripts
 from triviasql import trivia_game
@@ -15,6 +16,7 @@ from utilities import int_check
 from utilities import loading
 # Remember to change your own credentials in the connector
 from utilities import conn
+from smoking import smoking_action
 
 
 
@@ -148,7 +150,8 @@ def l_airport_task(current_money,shark):
         anim_print(f"""\nThe Shark is {shark} airports behind...
 Things to do at this airport:
 1. Gamble
-2. Go to the next airport
+2. Smoking break
+3. Go to the next airport
 """)
         task_choice = input(anim_print("What do you want to do: "))
         task_choice = int_check(task_choice)
@@ -163,6 +166,11 @@ Things to do at this airport:
             shark -= 1
             actions_left -= 1
         elif task_choice == 2:
+            temp_money=smoking_action()
+            total_money+=temp_money
+            shark-=1
+            actions_left -= 1
+        elif task_choice == 3:
             clear_window()
             break
     return total_money, total_cp, shark
