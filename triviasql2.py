@@ -171,4 +171,3 @@ def main_trivia():
     insert_questions()
     score = run_trivia_game()
     return score
-main_trivia()

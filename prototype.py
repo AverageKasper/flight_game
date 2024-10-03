@@ -212,6 +212,9 @@ def dumpster_dive():
         cp += 200
     return money, cp
 
+clear_window()
+## TODO: MAIN MENU
+anim_print("""Welcome to Dept & Deceit""")
 
 # Under here should be the last part of code
 clear_window()

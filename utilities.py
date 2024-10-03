@@ -24,11 +24,10 @@ def anim_print(text, delay=0.02):
 def loading():
     snail = '🛬'
     trail = '-'
-    leaves = ''
-    width = 20  # Adjust the width between the snail and the leaves
+    width = 20  # Adjust the width 
     spaces = 0
     while spaces <= width:
-        sys.stdout.write('\r' + ' ' * spaces + snail + trail * (width - spaces) + leaves)
+        sys.stdout.write('\r' + ' ' * spaces + snail + trail * (width - spaces))
         sys.stdout.flush()
         time.sleep(0.2)
         spaces += 1
