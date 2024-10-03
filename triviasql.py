@@ -1,3 +1,4 @@
+#importin some important shit or the whole game explodes
 import mysql.connector
 import random
 from utilities import anim_print

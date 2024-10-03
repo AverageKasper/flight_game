@@ -11,6 +11,8 @@ def dumpster_dive():
         trash_money = r.randint(50, 200)
         anim_print(f"\nYou found {trash_money} € from the trash!")
         money += trash_money
+        anim_print(f"\nYou found 1 phallic object from the trash!")
+        phallic_object += 1
     elif find == 2:
         trash_money = r.randint(50, 200)
         anim_print(f"\nYou found {trash_money} € from the trash!")
