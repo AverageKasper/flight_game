@@ -6,7 +6,7 @@ from triviasql2 import main_trivia
 from gambling import casino
 from random_events import random_event
 from pickpocket import pickpocket
-
+from rules import rule_print
 # Utilities 
 from utilities import anim_print
 from utilities import clear_window
@@ -213,10 +213,24 @@ def dumpster_dive():
     return money, cp
 
 clear_window()
-## TODO: MAIN MENU
-anim_print("""Welcome to Dept & Deceit""")
+# Under here starts the game
 
-# Under here should be the last part of code
+## TODO:   MAIN MENU
+##          Change pickpocket penalty    
+anim_print("""Welcome to Dept & Deceit.
+Would you like to play the game or read the rules?
+""")
+game_choice = input(anim_print("Type play or rules: ")).upper()
+while game_choice != "PLAY" and game_choice != "RULES":
+    game_choice = input(anim_print("Incorrect command. Type play or rules: ")).upper()
+if game_choice == "RULES":
+    clear_window()
+    rule_print()
+
+
+
+
+
 clear_window()
 # Small beginning lore
 anim_print(f"""You are 10000€ in debt with only 500€ left.
