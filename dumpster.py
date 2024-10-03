@@ -5,8 +5,8 @@ def dumpster_dive():
     money = 0
     cp = 0
     phallic_object = 0
-    #r.randint(1,10)
-    find = 10 
+    
+    find =  r.randint(1,10)
     if find == 1:
         trash_money = r.randint(50, 200)
         anim_print(f"\nYou found {trash_money} € from the trash!")
@@ -44,7 +44,7 @@ def dumpster_dive():
         anim_print(f"\nHUGE!! You found {trash_money} € from the trash!")
         money += trash_money
     elif find == 10:
-        anim_print(f"\nYou found a voucher for CP from the trash! You got 200 CP")
+        anim_print(f"\nYou found a voucher for CP from the trash! You got 500 CP")
         cp += 500
         anim_print(f"\nYou found 1 phallic object from the trash!")
         phallic_object += 1
