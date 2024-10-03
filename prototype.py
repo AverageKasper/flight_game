@@ -10,6 +10,7 @@ from utilities import int_check
 from utilities import anim_print
 from utilities import clear_window
 from utilities import int_check
+from smoking import smoking_action
 
 # Connector does not work straight up, needs your own user and password
 con = mysql.connector.connect(
@@ -323,6 +324,7 @@ You got beaten up by the Shark and put in jail for life.
 BAD ENDING
 """)
 
+
         game_end = True
     actions_per_airport = 2
     task_active = True
@@ -374,7 +376,7 @@ Munttu
 Kasper Paredes Aalto
 Alexander Wolff
 Special thanks to:
-Googling shit
+Googling shit2
 ———————————No bitches?———————————
 ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝
 ⠸⡸⠜⠕⠕⠁⢁⢇⢏⢽⢺⣪⡳⡝⣎⣏⢯⢞⡿⣟⣷⣳⢯⡷⣽⢽⢯⣳⣫⠇

@@ -3,7 +3,7 @@ import os
 
 
 # Animated print function
-def anim_print(text, delay=0.00):
+def anim_print(text, delay=0.02):
     for char in text:
         print(char, end="", flush=True)
         time.sleep(delay)
