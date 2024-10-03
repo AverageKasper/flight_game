@@ -33,7 +33,7 @@ def trivia_game():
             ("What is the capital of France?", "Berlin", "London", "Paris", "Madrid", 3),
             ("Who wrote 'Hamlet'?", "Mark Twain", "William Shakespeare", "Charles Dickens", "Leo Tolstoy", 2),
             ("What is the largest planet in our solar system?", "Earth", "Jupiter", "Saturn", "Mars", 2),
-            ("What is the chemical symbol for water?", "H20", "H2O2", "HO2", "H2O", 4),
+            ("What is the chemical symbol for water?", "H30", "H2O2", "HO2", "H2O", 4),
             ("Which year did World War I begin?", "1914", "1918", "1939", "1945", 1),
             ("Which year did world war 2 end?", "1963", "1945", "1933", "1943", 2),
             ("What is the name of the volcano located near Tokyo, Japan called?", "Mount Fuji", "Mount Yari", "Mount Kita", "Mount Aino", 1),
@@ -57,6 +57,15 @@ def trivia_game():
             ("Which Game of Thrones character is known as the Young Wolf?", "Robb Stark", "Arya Stark", "Sansa Stark", "Bran Stark", 1),
             ("What city hosted the 2002 Olympic Games?", "Tokyo", "Paris", "Beijing", "Sydney", 4),
             ("How many plays do people (generally) believe that Shakespeare wrote?", "47", "27", "57", "37", 4),
+            ("Which of the following was considered one of the Seven Ancient Wonders?", "Colosseum", "Great Wall of China", "Colossus of Rhodes", "Göbekli Tepe", 3),
+            ("Who directed the Academy Award-winning movie, Gladiator?", "Ridley Scott", "James Cameron", "Steven Soderbergh", "Michael Bay", 1),
+            ("How long did dinosaurs live on the earth?", "100-150 million years", "150-200 million years", "200+ million years", "300+ million years", 1),
+            ("What Italian city is famous for its system of canals?", "Rome", "Naples", "milan", "Venice", 4),
+            ("What is the strongest muscle in the human body?", "Jaw", "Heart", "Glutes", "Tongue", 1),
+            ("What is the longest-running Broadway show ever?", "Les Miserable", "The Lion King", "The Phantom of the Opera", "Hamilton", 3),
+            ("Where was tea invented?", "England", "China", "India", "USA", 2),
+            ("Where was the earliest documented case of the Spanish flu?", "Spain", "Mexico", "USA", "Argentina", 3),
+            ("Which of the following languages is NOT driven from Latin?", "French", "Portuguese", "English", "Greek", 3),
             ]
 
             # Insert trivia questions into the 'trivia_questions' table
