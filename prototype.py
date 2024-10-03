@@ -1,30 +1,30 @@
-import mysql.connector
 import random as r
 import time
+
+#Task Scripts
 from triviasql2 import main_trivia
 from gambling import casino
 from random_events import random_event
+from pickpocket import pickpocket
+
+# Utilities 
 from utilities import anim_print
 from utilities import clear_window
 from utilities import int_check
-# Connector does not work straight up, needs your own user and password
-con = mysql.connector.connect(
-                host='localhost',
-                database='flight_game',
-                user='root',
-                password='K1rahV1!',
-                autocommit=True,
-                collation="utf8mb4_general_ci"
-                )
+from utilities import loading
+# Remember to change your own credentials in the connector
+from utilities import conn
+
+
 
 # Variables
 game_end = False
 command = ""
-balance = 500
+balance = 1000
 airport_name = "Helsinki Vantaa Airport"
 airport_country = "FI"
 airport_type = "large_airport"
-cp = 10500
+cp = 7000
 airport_cp_cost = [100,200,500]
 actions_per_airport = 2
 # What if when you go to a small airport the event counter goes down by 1, medium goes by 2, and large goes by 3. and events are some good some bad, more bad
@@ -36,7 +36,7 @@ airports_travelled = 0
 # Airport moving
 def airport_options(type):
     sql = f"select name, iso_country, type from airport where type = '{type}' and name not like 'CLICK%' order by rand() limit 1;"
-    cursor = con.cursor()
+    cursor = conn.cursor()
     cursor.execute(sql)
     list = cursor.fetchall()
     return list[0]
@@ -45,7 +45,7 @@ def airport_options(type):
 def airport_chooser(cod_points, euro,shark):
     anim_print (f"""\nYou are at {airport_name},{airport_country}.
 You have {cod_points}CP left and {euro}€ in the bank.
-The shark is {shark} airports behind...
+The Shark is {shark} airports behind...
 Your next airport options are:
 1. {small_airport[0]}, {small_airport[1]}: 100CP
 2. {medium_airport[0]}, {medium_airport[1]}: 200CP
@@ -60,15 +60,16 @@ def s_airport_task(shark):
     small_cp = 0
     actions_left = 2
     while actions_left > 0:
-        anim_print(f"\nthe Shark is {shark} airports behind...")
-        anim_print(f"""\nThings to do at this airport:
+        anim_print(f"""\nThe Shark is {shark} airports behind...
+Things to do at this airport:
 1. Dumpster dive
-2. Go to the next airport
+2. Pickpocket
+3. Go to the next airport
 """)
         task_choice = input(anim_print("What do you want to do: "))
         task_choice = int_check(task_choice)
         # Checks if task_choice is  valid
-        while task_choice != 1 and task_choice != 2:
+        while task_choice not in range(1,4):
             task_choice = input("Invalid option, try again: ")
             task_choice = int_check(task_choice)
             
@@ -79,6 +80,11 @@ def s_airport_task(shark):
             shark -= 1
             actions_left -= 1
         elif task_choice == 2:
+            temp_money = pickpocket()
+            small_money += temp_money 
+            shark -= 1
+            actions_left -= 1
+        elif task_choice == 3:
             clear_window()
             break
     return small_money, small_cp, shark
@@ -91,8 +97,8 @@ def m_airport_task(shark):
     total_cp = 0
     actions_left = 2
     while actions_left >0:
-        anim_print(f"\nthe Shark is {loan_shark} airports behind...")
-        anim_print(f"""\nThings to do at this airport:
+        anim_print(f"""\nThe Shark is {shark} airports behind...
+Things to do at this airport:
 1. Trivia
 2. Go to the next airport
 """)
@@ -119,6 +125,7 @@ def m_airport_task(shark):
             shark -= 1
             total_money += medium_money
             total_cp += medium_cp
+            actions_left -= 1
         elif task_choice == 2:
             clear_window()
             break
@@ -134,8 +141,8 @@ def l_airport_task(current_money,shark):
     total_cp = 0
     actions_left = 2
     while actions_left >0:
-        anim_print(f"\nthe Shark is {loan_shark} airports behind...")
-        anim_print(f"""\nThings to do at this airport:
+        anim_print(f"""\nThe Shark is {shark} airports behind...
+Things to do at this airport:
 1. Gamble
 2. Go to the next airport
 """)
@@ -205,6 +212,9 @@ def dumpster_dive():
         cp += 200
     return money, cp
 
+clear_window()
+## TODO: MAIN MENU
+anim_print("""Welcome to Dept & Deceit""")
 
 # Under here should be the last part of code
 clear_window()
@@ -212,10 +222,8 @@ clear_window()
 anim_print(f"""You are 10000€ in debt with only 500€ left.
 You have to escape the loanshark by flying away using your Carbon Points(CP).
 """)
-
 # Main game loop
 while game_end == False:
-    print(f"Events first test {event_counter}")
     # Change airport part
     small_airport = airport_options("small_airport")
     medium_airport = airport_options("medium_airport")
@@ -322,11 +330,12 @@ BAD ENDING
     actions_per_airport = 2
     task_active = True
 
-    # Random event part
+    # Random event. If counter reaches 0 or under, executes random event script
     if event_counter <= 0:
-        event_money, event_cp, kidney, player_death, roulette_played = random_event()
+        event_money, event_cp, kidney, player_death, roulette_played, shark = random_event()
         balance += event_money
         cp += event_cp
+        loan_shark += shark
 
         # Results of russian roulette if played
         if roulette_played == True:
@@ -359,7 +368,7 @@ Your Carbon points: {cp}CP
 Total airports travelled: {airports_travelled}
 Your kidneys: {kidney}
 """)
-input()
+loading()
 clear_window()
 
 # Credits at the end of the game
@@ -369,7 +378,8 @@ Munttu
 Kasper Paredes Aalto
 Alexander Wolff
 Special thanks to:
-Googling shit
+Googling shit""")
+anim_print("""
 ———————————No bitches?———————————
 ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝
 ⠸⡸⠜⠕⠕⠁⢁⢇⢏⢽⢺⣪⡳⡝⣎⣏⢯⢞⡿⣟⣷⣳⢯⡷⣽⢽⢯⣳⣫⠇
@@ -385,7 +395,7 @@ Googling shit
 ⠀⠀⠀⡟⡾⣿⢿⢿⢵⣽⣾⣼⣘⢸⢸⣞⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠁⠇⠡⠩⡫⢿⣝⡻⡮⣒⢽⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 —————————————————————————————
-""")
+""", 0.0001)
 input()
 
 # List of shit to do:
@@ -394,6 +404,11 @@ input()
 #monk
 # List of problems: 
 #
+# ENDINGS to make
+#KIDNEY ENDING
 #
+
+
+
 #___________________________________________________________
 # Check duplicate lines = cntr + f > .* > ^(.*)(\n\1)+$ 
