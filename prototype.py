@@ -1,11 +1,12 @@
 import random as r
 import time
-
+import mysql.connector
 #Task Scripts
-from triviasql2 import main_trivia
+from triviasql import trivia_game
 from gambling import casino
 from random_events import random_event
 from pickpocket import pickpocket
+from dumpster import dumpster_dive
 
 # Utilities 
 from utilities import anim_print
@@ -17,6 +18,7 @@ from utilities import conn
 
 
 
+
 # Variables
 game_end = False
 command = ""
@@ -25,6 +27,7 @@ airport_name = "Helsinki Vantaa Airport"
 airport_country = "FI"
 airport_type = "large_airport"
 cp = 7000
+phallic_object = 0
 airport_cp_cost = [100,200,500]
 actions_per_airport = 2
 # What if when you go to a small airport the event counter goes down by 1, medium goes by 2, and large goes by 3. and events are some good some bad, more bad
@@ -58,6 +61,7 @@ Your next airport options are:
 def s_airport_task(shark):
     small_money = 0
     small_cp = 0
+    small_phallic_object = 0
     actions_left = 2
     while actions_left > 0:
         anim_print(f"""\nThe Shark is {shark} airports behind...
@@ -74,7 +78,7 @@ Things to do at this airport:
             task_choice = int_check(task_choice)
             
         if task_choice == 1:
-            temp_money, temp_cp  = dumpster_dive()
+            temp_money, temp_cp, small_phallic_object   = dumpster_dive()
             small_money += temp_money
             small_cp += temp_cp
             shark -= 1
@@ -87,7 +91,7 @@ Things to do at this airport:
         elif task_choice == 3:
             clear_window()
             break
-    return small_money, small_cp, shark
+    return small_money, small_cp, small_phallic_object, shark
 
 # Medium airport tasks
 def m_airport_task(shark):
@@ -110,7 +114,7 @@ Things to do at this airport:
             task_choice = int_check(task_choice)
         
         if task_choice == 1:
-            trivia_score = main_trivia()
+            trivia_score = trivia_game()
             if trivia_score == 1:
                 medium_money = 300
                 anim_print(f"You got {medium_money}€")
@@ -163,54 +167,7 @@ Things to do at this airport:
             break
     return total_money, total_cp, shark
 
-# Function for dumpster diving at small airports, returns gained currencies
-def dumpster_dive():
-    money = 0
-    cp = 0
-    
-    find = r.randint(1,10)
-    if find == 1:
-        trash_money = r.randint(50, 200)
-        anim_print(f"\nYou found {trash_money} € from the trash!")
-        money += trash_money
-    elif find == 2:
-        trash_money = r.randint(50, 200)
-        anim_print(f"\nYou found {trash_money} € from the trash!")
-        money += trash_money
-    elif find == 3:
-        trash_money = r.randint(50, 200)
-        anim_print(f"\nYou found {trash_money} € from the trash!")
-        money += trash_money
-    elif find == 4:
-        trash_money = r.randint(50, 200)
-        anim_print(f"\nYou found {trash_money} € from the trash!")
-        money += trash_money
-    elif find == 5:
-        trash_money = r.randint(50, 200)
-        anim_print(f"\nYou found {trash_money} € from the trash!")
-        money += trash_money
-    elif find == 6:
-        trash_money = r.randint(50, 200)
-        anim_print(f"\nYou found {trash_money} € from the trash!")
-        money += trash_money
-    elif find == 7:
-        trash_money = r.randint(50, 200)
-        anim_print(f"\nYou found {trash_money} € from the trash!")
-        money += trash_money
-    elif find == 8:
-        trash_money = r.randint(50, 200)
-        anim_print(f"\nYou found {trash_money} € from the trash!")
-        money += trash_money
-    elif find == 9:
-        trash_money = r.randint(300, 500)
-        anim_print(f"\nHUGE!! You found {trash_money} € from the trash!")
-        money += trash_money
-    elif find == 10:
-        anim_print(f"\nYou found a voucher for CP from the trash! You got 200 CP")
-        cp += 200
-        anim_print(f"\nYou found a voucher for CP from the trash! You got 200 CP")
-        cp += 200
-    return money, cp
+
 
 clear_window()
 ## TODO: MAIN MENU
@@ -280,9 +237,10 @@ while game_end == False:
         anim_print(f"You have {balance}€.")
         # Goes to small airport task function
         if airport_type == "small_airport":
-            temp_money,temp_cp,loan_shark = s_airport_task(loan_shark)
+            temp_money,temp_cp, small_phallic_object, loan_shark = s_airport_task(loan_shark)
             balance += temp_money
             cp += temp_cp
+            phallic_object += small_phallic_object
             break
         elif airport_type == "medium_airport":
             temp_money,temp_cp,loan_shark = m_airport_task(loan_shark)
@@ -318,7 +276,17 @@ while game_end == False:
 Throughout your journey you have managed to gather enough money to pay him back.
 GOOD ENDING
 """)
-            
+        elif balance < 10000 and phallic_object > 0:
+            anim_print("""\nYou've been cought by the Shark...
+You did not manage to gather enouth money on time but you feel 
+the wormth of a phallical object in your pocket. You decide to try your luck
+and smack the poor guy right in the testies. He never stood a chance...
+you manage to get away this time and get another chance to gather the money!
+""")        
+            phallic_object -= 1
+            loan_shark += 2
+            continue
+
         else:
             anim_print("""\nYou've been caught by the Shark.
 You did not manage to gather enough money on time.
@@ -367,6 +335,7 @@ Your money: {balance}€
 Your Carbon points: {cp}CP
 Total airports travelled: {airports_travelled}
 Your kidneys: {kidney}
+Phallic objects collected: {phallic_object}
 """)
 loading()
 clear_window()
