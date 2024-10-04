@@ -57,7 +57,7 @@ def pickpocket():
 
     # Assign percentage chance and reward based on difficulty
     difficulty_mapping = {
-        "★": (90, r.randint(10,200)),   # 90% chance, 10 reward
+        "★": (90, r.randint(10,200)),   # 90% chance, 10-200€ reward
         "★★": (70, r.randint(200,400)),  # 70% chance, 200-400€ reward
         "★★★": (50, r.randint(400,600)),  # 50% chance, 400-600€ reward
         "★★★★": (30, r.randint(600,800)),  # 30% chance, 600-800€ reward
