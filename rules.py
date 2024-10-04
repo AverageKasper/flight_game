@@ -56,5 +56,3 @@ At airports you can do 2 task per airport before you need to move to the next on
 
 """)
 
-
-rule_print()

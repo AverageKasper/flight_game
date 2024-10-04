@@ -25,11 +25,16 @@ from smoking import smoking_action
 # Variables
 game_end = False
 command = ""
+debt = 10000
 balance = 1000
+cp = 7000
+hard_debt = 20000
+hard_balance = 0
+hard_cp = 4000
 airport_name = "Helsinki Vantaa Airport"
 airport_country = "FI"
 airport_type = "large_airport"
-cp = 7000
+
 phallic_object = 0
 airport_cp_cost = [100,200,500]
 actions_per_airport = 2
@@ -75,7 +80,7 @@ Things to do at this airport:
 """)
         task_choice = input(anim_print("What do you want to do: "))
         task_choice = int_check(task_choice)
-        # Checks if task_choice is  valid
+        # Checks if task_choice is valid
         while task_choice not in range(1,4):
             task_choice = input("Invalid option, try again: ")
             task_choice = int_check(task_choice)
@@ -184,6 +189,7 @@ clear_window()
 ## TODO:   MAIN MENU
 ##          Change pickpocket penalty    
 anim_print("""Welcome to Dept & Deceit.
+You have to escape the loanshark and gather money to win
 Would you like to play the game or read the rules?
 """)
 game_choice = input(anim_print("Type play or rules: ")).upper()
@@ -193,14 +199,23 @@ if game_choice == "RULES":
     clear_window()
     rule_print()
 
-
-
-
+# Difficulty choice
+anim_print(f"""Difficulties:
+Normal: Debt is {debt}, starting money is {balance} and cp is {cp}
+Hard: Debt is {hard_debt}, starting money is {hard_balance} and cp is {hard_cp}
+""")
+difficulty_choice = input(anim_print("Choose a difficulty: ")).upper()
+while difficulty_choice != "NORMAL" and difficulty_choice != "HARD":
+    difficulty_choice = input(anim_print("Incorrect choice. Choose a difficulty: ")).upper()
+if difficulty_choice == "HARD":
+    balance = hard_balance
+    cp = hard_cp
+    debt = hard_debt
 
 clear_window()
 # Small beginning lore
-anim_print(f"""You are 10000€ in debt with only 500€ left.
-You have to escape the loanshark by flying away using your Carbon Points(CP).
+anim_print(f"""You are {debt}€ in debt with {balance}€ in your bank.
+You have {cp}CP to fly around with.
 """)
 # Main game loop
 while game_end == False:
@@ -289,22 +304,21 @@ while game_end == False:
         anim_print(f"""\nYou have run out of CP to continue flying.
                    """)
         
-        input()
+        
         game_end = True
-        if balance > 10000:
-            pass
+        loan_shark = 0
     if loan_shark <1:
-        if balance > 10000:
+        if balance > debt:
             anim_print("""\nYou've been caught by the Shark.
 Throughout your journey you have managed to gather enough money to pay him back.
 GOOD ENDING
 """)
-        elif balance < 10000 and phallic_object > 0:
-            anim_print("""\nYou've been cought by the Shark...
+        elif balance < debt and phallic_object > 0 and cp > airport_cp_cost[0]:
+            anim_print("""\nYou've been caught by the Shark...
 You did not manage to gather enouth money on time but you feel 
-the wormth of a phallical object in your pocket. You decide to try your luck
+the warmth of a phallical object in your pocket. You decide to try your luck
 and smack the poor guy right in the testies. He never stood a chance...
-you manage to get away this time and get another chance to gather the money!
+You manage to get away this time and get another chance to gather the money!
 """)        
             phallic_object -= 1
             loan_shark += 2
