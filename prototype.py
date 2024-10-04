@@ -84,7 +84,7 @@ Things to do at this airport:
         while task_choice not in range(1,4):
             task_choice = input("Invalid option, try again: ")
             task_choice = int_check(task_choice)
-            
+
         if task_choice == 1:
             temp_money, temp_cp, small_phallic_object   = dumpster_dive()
             small_money += temp_money
@@ -120,7 +120,7 @@ Things to do at this airport:
         while task_choice != 1 and task_choice != 2:
             task_choice = input("Invalid option, try again: ")
             task_choice = int_check(task_choice)
-        
+
         if task_choice == 1:
             trivia_score = trivia_game()
             if trivia_score == 1:
@@ -146,7 +146,7 @@ Things to do at this airport:
 
 # Large airport tasks
 def l_airport_task(current_money,shark):
-    
+
     large_money = 0
     large_cp = 0
     total_money = current_money
@@ -223,10 +223,10 @@ while game_end == False:
     small_airport = airport_options("small_airport")
     medium_airport = airport_options("medium_airport")
     large_airport = airport_options("large_airport")
-    
-    # Go to airport choosing function 
+
+    # Go to airport choosing function
     next_airport = airport_chooser(cp,balance,loan_shark)
-    
+
     # Check what airport was chosen
     if next_airport == 1:
         if cp < airport_cp_cost[0]:
@@ -264,7 +264,7 @@ while game_end == False:
         cp -= airport_cp_cost[2]
         event_counter -= 3
     clear_window()
-    
+
     loan_shark += 1
 
     # Task loop
@@ -292,13 +292,13 @@ while game_end == False:
             break
 
         # Shit is fucked
-        else: 
+        else:
             print("how the fuck you get here")
         actions_per_airport -= 1
 
         if actions_per_airport == 0:
             break
-    
+
     if cp < airport_cp_cost[0]:
         clear_window()
         anim_print(f"""\nYou have run out of CP to continue flying.
@@ -323,6 +323,7 @@ You manage to get away this time and get another chance to gather the money!
             phallic_object -= 1
             loan_shark += 2
             continue
+
 
         else:
             anim_print("""\nYou've been caught by the Shark.
@@ -406,15 +407,11 @@ input()
 
 # List of shit to do:
 # Make more tasks
-# 
-#monk
+#
 # List of problems: 
 #
 # ENDINGS to make
 #KIDNEY ENDING
 #
-
-
-
 #___________________________________________________________
 # Check duplicate lines = cntr + f > .* > ^(.*)(\n\1)+$ 
