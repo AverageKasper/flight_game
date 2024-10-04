@@ -101,6 +101,7 @@ def start_fighting(salvia_mode=False):
             return player_death
 
     print("The fight is over!")
+
 # Rööki lista
 cigarette_brands = [
         "MARLBORO RED", "MARLBORO GOLD", "WEST BLUE", "JOHN PLAYER SPECIAL",
@@ -134,6 +135,7 @@ def smoking_action():
 
         elif bum=="NO":
             anim_print("You denied the cigarette and the stranger\n")
+
     # Marlboro Red
     elif cig==cigarette_brands[0]:
         anim_print("You chose Marlboro Red, a classic choice\n")
@@ -145,7 +147,9 @@ def smoking_action():
          anim_print(f"Your balance now is {money}€\n")
         elif businessman=="NO":
             return
+
     # Marlboro Gold
+
     elif cig==cigarette_brands[1]:
         anim_print("You chose Marlboro Gold\n")
         time.sleep(1)
@@ -156,6 +160,7 @@ def smoking_action():
             return player_death
         if angry_person=="YES":
             anim_print("You stop smoking and the situation cools down\n")
+            
     # West Blue
     elif cig==cigarette_brands[2]:
         anim_print("You chose West Blue, broke choice\n")
@@ -168,6 +173,7 @@ def smoking_action():
         anim_print(f"You got {random_money}")
         money+=random_money
 
+
     #Salvia Joint
     elif cig==cigarette_brands[4]:
         anim_print("You chose the Salvia Joint.\n")
@@ -178,6 +184,7 @@ def smoking_action():
         time.sleep(1)
         anim_print("You attack a single mother while still being under the influence \n")
         start_fighting(salvia_mode=True)
+
     # American Black
     elif cig==cigarette_brands[5]:
         anim_print("You chose American Black, strong choice\n")
@@ -193,6 +200,7 @@ def smoking_action():
         black_money=random.randint(500, 1000)
         anim_print(f"You lost {black_money}€")
         money+=black_money
+
 
 
     return money
