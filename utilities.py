@@ -1,14 +1,37 @@
+import mysql.connector
 import time
 import os
+import sys
 
+# Mysql Connector
+conn = mysql.connector.connect(
+                host='localhost',
+                database='flight_game',
+                user='elias',
+                password='Kesko123',
+                autocommit=True,
+                collation="utf8mb4_general_ci"
+                )
 
 # Animated print function
-def anim_print(text, delay=0.00):
+def anim_print(text, delay=0.02):
     for char in text:
         print(char, end="", flush=True)
         time.sleep(delay)
     return ""
 
+# Loading screen animation if ever needed
+def loading():
+    snail = '🛬'
+    trail = '-'
+    width = 20  # Adjust the width 
+    spaces = 0
+    while spaces <= width:
+        sys.stdout.write('\r' + ' ' * spaces + snail + trail * (width - spaces))
+        sys.stdout.flush()
+        time.sleep(0.2)
+        spaces += 1
+    
 # Clearing console function
 def clear_window():
     os.system('cls' if os.name=='nt' else 'clear')
@@ -24,3 +47,4 @@ def int_check(player_input):
            player_input = int(player_input)
            break 
     return player_input
+
