@@ -386,6 +386,7 @@ Kasper Paredes Aalto
 Alexander Wolff
 Special thanks to:
 Googling shit""")
+
 anim_print("""
 ———————————No bitches?———————————
 ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝
