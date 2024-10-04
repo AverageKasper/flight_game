@@ -1,7 +1,22 @@
-from operator import truediv
 from utilities import anim_print
 import time
 import random
+
+# Funktio printtaa boksin rööki listan ympärille.
+def print_boxed_list(items):
+
+    max_len = max(len(str(item)) for item in items)
+    box_width = max_len + 4
+
+
+    print('+' + '-' * (box_width) + '+')
+
+
+    for item in items:
+        print(f'| {str(item).center(max_len)} |')
+
+
+    print('+' + '-' * (box_width) + '+')
 
 #Tappelu funktio
 def start_fighting(salvia_mode=False):
@@ -86,25 +101,29 @@ def start_fighting(salvia_mode=False):
             return player_death
 
     print("The fight is over!")
-
+# Rööki lista
 cigarette_brands = [
         "MARLBORO RED", "MARLBORO GOLD", "WEST BLUE", "JOHN PLAYER SPECIAL",
         "SALVIA JOINT", "AMERICAN BLACK"]
+
+# Rööki pää funktio
 def smoking_action():
     money = 0
-    for brand in cigarette_brands:
-     anim_print(brand + "\n")
+
+    print_boxed_list(cigarette_brands)
     cig=input(anim_print("You are at 7eleven, choose your delicacy: \n")).upper()
     if cig==cigarette_brands[3]:
+        anim_print("You chose the John Player Special, spicy choice")
+        time.sleep(1)
         anim_print("You start enjoying your pack of cigarettes\n")
-        time.sleep(2)
+        time.sleep(1)
         bum=input(anim_print("A random strangers appears and is desperate for a cigarette, do you give her one or not? (Yes or No): \n")).upper()
         if bum=="YES":
-            anim_print("She is extremely thankful and offers you a handjob\n")
+            anim_print("She is extremely thankful and offers you a special service in a back alley\n")
             handjob=input("Do you accept: \n").upper()
             if handjob=="YES":
                 anim_print("You accepted and received a rough treatment in a back alley\n")
-                time.sleep(3)
+                time.sleep(2)
                 anim_print("While you're getting treated, a mysterious guy comes up behind you and stabs you\n")
                 player_death=True
                 return player_death
@@ -115,10 +134,10 @@ def smoking_action():
 
         elif bum=="NO":
             anim_print("You denied the cigarette and the stranger\n")
-
+    # Marlboro Red
     elif cig==cigarette_brands[0]:
         anim_print("You chose Marlboro Red, a classic choice\n")
-        time.sleep(2)
+        time.sleep(1)
         anim_print("While smoking you start talking to a Japanese businessman\n")
         businessman=input(anim_print("The businessman offers you 1000€. Do you accept: \n")).upper()
         if businessman=="YES":
@@ -126,7 +145,7 @@ def smoking_action():
          anim_print(f"Your balance now is {money}€\n")
         elif businessman=="NO":
             return
-
+    # Marlboro Gold
     elif cig==cigarette_brands[1]:
         anim_print("You chose Marlboro Gold\n")
         time.sleep(1)
@@ -137,7 +156,7 @@ def smoking_action():
             return player_death
         if angry_person=="YES":
             anim_print("You stop smoking and the situation cools down\n")
-
+    # West Blue
     elif cig==cigarette_brands[2]:
         anim_print("You chose West Blue, broke choice\n")
         time.sleep(1)
@@ -149,7 +168,7 @@ def smoking_action():
         anim_print(f"You got {random_money}")
         money+=random_money
 
-
+    #Salvia Joint
     elif cig==cigarette_brands[4]:
         anim_print("You chose the Salvia Joint.\n")
         time.sleep(1)
@@ -159,10 +178,21 @@ def smoking_action():
         time.sleep(1)
         anim_print("You attack a single mother while still being under the influence \n")
         start_fighting(salvia_mode=True)
-
+    # American Black
     elif cig==cigarette_brands[5]:
         anim_print("You chose American Black, strong choice\n")
         time.sleep(1)
         anim_print("You start smoking \n")
+        time.sleep(1)
+        anim_print("It's some strong ass stuff\n")
+        time.sleep(1)
+        anim_print("You start coughing and feeling terrible\n")
+        time.sleep(1)
+        anim_print("While you're out of it and suffering someone steals your wallet\n")
+        time.sleep(0.5)
+        black_money=random.randint(500, 1000)
+        anim_print(f"You lost {black_money}€")
+        money+=black_money
+
 
     return money
