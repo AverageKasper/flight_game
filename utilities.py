@@ -3,12 +3,12 @@ import time
 import os
 import sys
 
-# Mysql Connector
+# Mysql Connector thingy
 conn = mysql.connector.connect(
                 host='localhost',
                 database='flight_game',
-                user='elias',
-                password='Kesko123',
+                user='root',
+                password='K1rahV1!',
                 autocommit=True,
                 collation="utf8mb4_general_ci"
                 )

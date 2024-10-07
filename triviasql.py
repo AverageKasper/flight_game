@@ -21,15 +21,15 @@ def trivia_game():
                         )''')
         conn.commit()
 
-        # Step 2: Clear the trivia_questions table to avoid duplicate data
+        # deletes everything from questions table in sql, otherwise duplicates will be generated fucking shit up in the process
         cursor.execute("TRUNCATE TABLE trivia_questions")
 
-        # Step 3: Check if trivia questions already exist and insert new ones if necessary
+        # check if trivia questions exist already and insert if no questions in tavle UwU
         cursor.execute("SELECT COUNT(*) FROM trivia_questions")
         count = cursor.fetchone()[0]
 
         
-            # Sample trivia questions
+            # questions followed by 4 potential aswers and a number representing the right aswer.
         questions = [
             ("What is the capital of France?", "Berlin", "London", "Paris", "Madrid", 3),
             ("Who wrote 'Hamlet'?", "Mark Twain", "William Shakespeare", "Charles Dickens", "Leo Tolstoy", 2),
@@ -91,9 +91,9 @@ def trivia_game():
         total_questions = len(questions)
 
         # Set a limit on questions asked
-        question_limit = min(3, total_questions)  # Change the number 3 to your desired limit
+        question_limit = min(3, total_questions)  # This thingy limits the questions to 3 per game
 
-        # Loop through each question and present to the player
+        # Loop through questions and print them out
         for i, question in enumerate(questions[:question_limit], start=1):
             q_id, question_text, option1, option2, option3, option4, correct_option = question
             anim_print(f"\nQuestion {i}: {question_text}")
@@ -102,14 +102,14 @@ def trivia_game():
             anim_print(f"\n3. {option3}")
             anim_print(f"\n4. {option4}")
 
-            # Get the user's answer
+            # Record users imput 
             user_answer = input(anim_print("\nYour answer (1-4) or 'q' to quit: "))
-
+            # Exits the game if input = q
             if user_answer.lower() == 'q':
                 anim_print("You chose to quit the game.")
                 break
 
-            # Validate the answer and update the score
+            # Check if the answer is correct and print shit on screen accordingly
             if user_answer.isdigit() and int(user_answer) == correct_option:
                 anim_print("Correct!")
                 score += 1
