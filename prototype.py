@@ -180,7 +180,7 @@ Things to do at this airport:
             shark -= 1
             actions_left -= 1
         elif task_choice == 2:
-            temp_money=smoking_action()
+            temp_money, player_death=smoking_action()
             total_money+=temp_money
             shark-=1
             actions_left -= 1
