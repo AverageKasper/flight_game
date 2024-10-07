@@ -1,5 +1,5 @@
 
-from utilities import anim_print
+from utilities import anim_print, clear_window
 import time
 import random
 
@@ -93,7 +93,7 @@ def start_fighting(salvia_mode=False):
             # Check if enemy is dead immediately after attack
             if enemy["health"] <= 0:
                 if salvia_mode:
-                    anim_print("You murdered a single mother in cold blood!\n")
+                    anim_print("You murdered an innocent bystander in cold blood!\n")
                 else:
                     anim_print("Enemy has been killed!\n")
                 break  # Break the loop to stop the fight immediately if enemy is dead
@@ -110,6 +110,7 @@ def start_fighting(salvia_mode=False):
             # Check if player is dead immediately after attack
             if player["health"] <= 0:
                 anim_print("You have been killed!\n")
+                player_death = True
                 return player_death
 
             turn = "player"
@@ -132,8 +133,11 @@ def smoking_action():
 
     print_boxed_list(cigarette_brands)
     cig=input(anim_print("You are at 7eleven, choose your delicacy: \n")).upper()
+    clear_window()
     while cig not in cigarette_brands:
+        print_boxed_list(cigarette_brands)
         cig=input(anim_print("Invalid choice. Please choose your delicacy:")).upper()
+
 
 
 
@@ -151,24 +155,40 @@ def smoking_action():
                 time.sleep(2)
                 anim_print("While you're getting treated, a mysterious guy comes up behind you and stabs you\n")
                 stabbed=True
+                time.sleep(3)
+                clear_window()
 
 
             elif handjob=="NO":
                 anim_print("You denied the strangers offer and continued smoking\n")
+                time.sleep(2)
+                anim_print("You're done smoking and get ready for your next flight\n")
+                time.sleep(2)
+                clear_window()
 
         elif bum=="NO":
             anim_print("You denied the cigarette from the stranger\n")
+            time.sleep(2)
+            anim_print("You're done smoking and get ready for your next flight\n")
+            time.sleep(2)
+            clear_window()
 
     # Marlboro Red
     elif cig==cigarette_brands[0]:
         anim_print("You chose Marlboro Red, a classic choice\n")
         time.sleep(1)
         anim_print("While smoking you start talking to a Japanese businessman\n")
-        businessman=input(anim_print("The businessman offers you 1000€. Do you accept: \n")).upper()
+        random_bucks=random.randint(1, 1200)
+        businessman=input(anim_print(f"The businessman offers you {random_bucks}€. Do you accept: \n")).upper()
         if businessman=="YES":
-            money+=1000
+            money+=random_bucks
+            anim_print(f"You got {random_bucks}€")
+            #Yakuza ending in ohjelmisto 2?????
+            time.sleep(2)
+            clear_window()
         elif businessman=="NO":
-            anim_print(f"You didn't get money")
+            anim_print(f"You didn't get money, stupid ah decision.")
+        clear_window()
 
 
     # Marlboro Gold
@@ -180,11 +200,16 @@ def smoking_action():
         time.sleep(1)
         angry_person=input(anim_print("An angry person asks you to stop and threatens to attack you, do you stop smoking (Yes or No): \n")).upper()
         if angry_person=="NO":
+            clear_window()
             player_death=start_fighting()
             if player_death==True:
                 fighting_death=True
+                clear_window()
+            clear_window()
         if angry_person=="YES":
             anim_print("You stop smoking and the situation cools down\n")
+            time.sleep(3)
+            clear_window()
             
     # West Blue
     elif cig==cigarette_brands[2]:
@@ -192,11 +217,13 @@ def smoking_action():
         time.sleep(1)
         anim_print("Due to your low money choice a group of guys come up to you and mock you for choosing West Blue.\n")
         time.sleep(1)
-        anim_print("They feel so bad for you that they give you money")
+        anim_print("They feel so bad for you that they give you money.\n")
         random_money=random.randint(100, 300)
         time.sleep(0.5)
-        anim_print(f"You got {random_money}")
+        anim_print(f"You got {random_money}€")
+        time.sleep(3)
         money+=random_money
+        clear_window()
 
 
     # Salvia Joint
@@ -208,10 +235,13 @@ def smoking_action():
         anim_print("You wake up and feel extremely violent and confused \n")
         time.sleep(1)
         anim_print("You attack a random bystander while still being under the influence \n")
+        time.sleep(1)
         player_death=start_fighting(salvia_mode=True)
         if player_death==True:
             fighting_death=True
             salvia_death=True
+        time.sleep(2)
+        clear_window()
 
 
     # American Black
@@ -228,9 +258,12 @@ def smoking_action():
         time.sleep(0.5)
         black_money=random.randint(500, 1000)
         anim_print(f"You lost {black_money}€")
-        money+=black_money
+        money-=black_money
+        time.sleep(2.5)
+        clear_window()
 
     return money, player_death, stabbed, fighting_death, salvia_death
 
 
-#Monke 69
+
+#Monke 6969
