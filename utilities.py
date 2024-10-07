@@ -3,7 +3,7 @@ import time
 import os
 import sys
 
-# Mysql Connector
+# Mysql Connector thingy
 conn = mysql.connector.connect(
                 host='localhost',
                 database='flight_game',
