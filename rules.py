@@ -53,6 +53,7 @@ Tasks to do at Type 3 airports are: Gambling, Smoking.
         return
     anim_print("""MOVING AND GAMEPLAY PART 2
 At airports you can do 2 task per airport before you need to move to the next one.
+Be careful if the shark is 1 airport behind. doing a task at this point will make him catch up and might end the game.
 
 """)
 

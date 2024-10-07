@@ -37,8 +37,10 @@ A rough voice speaks at you.
             time.sleep(1)
             chamber_spin = r.randint(1,6)
             if chamber_spin == bullet:
-                anim_print("""BANG!         \n""")
+                anim_print("""BANG!
+""")
                 player_death = True
+                time.sleep(1)
                 break
             else:
                 anim_print("""CLICK             
@@ -50,9 +52,9 @@ You live for a moment longer.
             time.sleep(1)
             chamber_spin = r.randint(1,6)
             if chamber_spin == bullet:
-                anim_print("""BANG!             
+                anim_print("""BANG!
 """)
-
+                time.sleep(1)
                 shark_death = True
                 break
             else:
@@ -70,7 +72,8 @@ event_list = ["Sausage",
                 "Loanshark",
                 "Celebrity",
                 "Burning hand",
-                "Poolparty"]
+                "Poolparty",
+                "PDiddy"]
 
 # Random event function, picks one event to be played out from the above list and then removes it from the list
 # Easy to add more events, To add more events add the name to the list above and make elif statement at the bottom of the script
@@ -179,7 +182,11 @@ Tough luck.""")
 You decide to throw a pool party at the airports lounge.
 It cost you {pool_money}€. """)
         event_money -= pool_money
+    elif "PDiddy" == event_list[event_check]:
+        anim_print("""You meet PDiddy at the airport.
+He sees you and aproaches, greeting you.
 
+""")
     # Insert new event above
     # end of random events
     else:
