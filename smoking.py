@@ -1,3 +1,4 @@
+
 from utilities import anim_print
 import time
 import random
@@ -18,8 +19,9 @@ def print_boxed_list(items):
 
     print('+' + '-' * (box_width) + '+')
 
-#Tappelu funktio
+# Tappelu funktio
 def start_fighting(salvia_mode=False):
+    player_death=False
     player = {
         "name": "Player",
         "health": 100,
@@ -47,58 +49,70 @@ def start_fighting(salvia_mode=False):
             "Hallucination kick": (20, 40),
             "Salvia rage": (25, 50)
         }
-        enemy["name"] = "Single mother"
+        enemy["name"] = "Bystander"
         enemy["health"] = 80
-    # Hyökkäys
+
+    # Attack function
     def attack(attacker, defender, attack_type):
         damage = random.randint(*attacker["attacks"][attack_type])
         defender["health"] -= damage
+        if defender["health"] < 0:
+            defender["health"] = 0  # Prevent negative health values
         print(f"{attacker['name']} uses {attack_type} and deals {damage} damage!")
         print(f"{defender['name']} has {defender['health']} health left.\n")
         time.sleep(1)
 
-
-    # Liikkeen valinta
+    # Player's turn function
     def player_turn():
         print("It's your turn! Choose your attack:")
         for attack in player["attacks"]:
             print(f"- {attack}")
-
         choice = input("Enter your attack: ").capitalize()
         while choice not in player["attacks"]:
             print("Invalid choice. Please select a valid attack.")
             choice = input("Enter your attack: ").capitalize()
-
         return choice
 
-
-    # Vihu valitsee satunnaisen liikkeen
+    # Enemy's turn function (random attack)
     def enemy_turn():
         choice = random.choice(list(enemy["attacks"].keys()))
         return choice
 
+    # Randomly decide who starts
+    turn = random.choice(["player", "enemy"])  # Randomly choose who goes first
+    print(f"The fight begins! {turn.capitalize()} throws the first punch!\n")
 
     # Main game loop
-    print("The fight begins!\n")
     while player["health"] > 0 and enemy["health"] > 0:
 
-        player_attack = player_turn()
-        attack(player, enemy, player_attack)
-        if salvia_mode==True and enemy["health"] <= 0:
-            anim_print("You murdered a single mother in cold blood!\n")
-        elif enemy["health"] <= 0:
-            anim_print("Enemy has been killed!\n")
-            break
+        if turn == "player":
+            # Player's turn
+            player_attack = player_turn()
+            attack(player, enemy, player_attack)
 
+            # Check if enemy is dead immediately after attack
+            if enemy["health"] <= 0:
+                if salvia_mode:
+                    anim_print("You murdered a single mother in cold blood!\n")
+                else:
+                    anim_print("Enemy has been killed!\n")
+                break  # Break the loop to stop the fight immediately if enemy is dead
 
-        print("Enemy's turn...\n")
-        time.sleep(1)
-        enemy_attack = enemy_turn()
-        attack(enemy, player, enemy_attack)
-        if player["health"] <= 0:
-            anim_print("You have been killed!\n")
-            player_death=True
-            return player_death
+            turn = "enemy"  # Switch to enemy's turn
+
+        else:
+            # Enemy's turn
+            print("Enemy's turn...\n")
+            time.sleep(1)
+            enemy_attack = enemy_turn()
+            attack(enemy, player, enemy_attack)
+
+            # Check if player is dead immediately after attack
+            if player["health"] <= 0:
+                anim_print("You have been killed!\n")
+                return player_death
+
+            turn = "player"
 
     print("The fight is over!")
 
@@ -110,11 +124,21 @@ cigarette_brands = [
 # Rööki pää funktio
 def smoking_action():
     money = 0
+    player_death=False
+    stabbed = False
+    fighting_death=False
+    salvia_death=False
+
 
     print_boxed_list(cigarette_brands)
     cig=input(anim_print("You are at 7eleven, choose your delicacy: \n")).upper()
+    while cig not in cigarette_brands:
+        cig=input(anim_print("Invalid choice. Please choose your delicacy:")).upper()
+
+
+
     if cig==cigarette_brands[3]:
-        anim_print("You chose the John Player Special, spicy choice")
+        anim_print("You chose the John Player Special, spicy choice\n")
         time.sleep(1)
         anim_print("You start enjoying your pack of cigarettes\n")
         time.sleep(1)
@@ -126,15 +150,14 @@ def smoking_action():
                 anim_print("You accepted and received a rough treatment in a back alley\n")
                 time.sleep(2)
                 anim_print("While you're getting treated, a mysterious guy comes up behind you and stabs you\n")
-                player_death=True
-                return player_death
+                stabbed=True
 
 
             elif handjob=="NO":
                 anim_print("You denied the strangers offer and continued smoking\n")
 
         elif bum=="NO":
-            anim_print("You denied the cigarette and the stranger\n")
+            anim_print("You denied the cigarette from the stranger\n")
 
     # Marlboro Red
     elif cig==cigarette_brands[0]:
@@ -143,10 +166,10 @@ def smoking_action():
         anim_print("While smoking you start talking to a Japanese businessman\n")
         businessman=input(anim_print("The businessman offers you 1000€. Do you accept: \n")).upper()
         if businessman=="YES":
-         money+=1000
-         anim_print(f"Your balance now is {money}€\n")
+            money+=1000
         elif businessman=="NO":
-            return
+            anim_print(f"You didn't get money")
+
 
     # Marlboro Gold
 
@@ -154,10 +177,12 @@ def smoking_action():
         anim_print("You chose Marlboro Gold\n")
         time.sleep(1)
         anim_print("You start smoking indoors and people around you start getting agitated\n")
+        time.sleep(1)
         angry_person=input(anim_print("An angry person asks you to stop and threatens to attack you, do you stop smoking (Yes or No): \n")).upper()
         if angry_person=="NO":
             player_death=start_fighting()
-            return player_death
+            if player_death==True:
+                fighting_death=True
         if angry_person=="YES":
             anim_print("You stop smoking and the situation cools down\n")
             
@@ -174,7 +199,7 @@ def smoking_action():
         money+=random_money
 
 
-    #Salvia Joint
+    # Salvia Joint
     elif cig==cigarette_brands[4]:
         anim_print("You chose the Salvia Joint.\n")
         time.sleep(1)
@@ -182,8 +207,12 @@ def smoking_action():
         time.sleep(1)
         anim_print("You wake up and feel extremely violent and confused \n")
         time.sleep(1)
-        anim_print("You attack a single mother while still being under the influence \n")
-        start_fighting(salvia_mode=True)
+        anim_print("You attack a random bystander while still being under the influence \n")
+        player_death=start_fighting(salvia_mode=True)
+        if player_death==True:
+            fighting_death=True
+            salvia_death=True
+
 
     # American Black
     elif cig==cigarette_brands[5]:
@@ -201,6 +230,7 @@ def smoking_action():
         anim_print(f"You lost {black_money}€")
         money+=black_money
 
+    return money, player_death, stabbed, fighting_death, salvia_death
 
 
-    return money
+#Monke 69
