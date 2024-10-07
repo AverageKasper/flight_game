@@ -17,18 +17,19 @@ def horse_race(money):
 
     # Player places a bet
     while True:
-        bet_horse = input(f"Which horse do you want to bet on? ({', '.join(horses)}): ").capitalize()
+        bet_horse = input(anim_print(f"Which horse do you want to bet on? ({', '.join(horses)}): ")).capitalize()
         if bet_horse not in horses:
             anim_print("Invalid horse. Please choose from the list.\n")
             continue
         break
 
-    bet_amount = int(input("How much do you want to bet? "))
-    if bet_amount > money:
-        anim_print("Broke ass!\n")
-        return money
+    bet = input(anim_print("How much do you want to bet: "))
+    bet = int_check(bet)
+    while bet > money:
+        bet = input(anim_print("Broke ass, bet less: "))
+        bet = int_check(bet)
 
-    anim_print(f"You placed {bet_amount} euros on {bet_horse}.\n")
+    anim_print(f"You placed {bet} euros on {bet_horse}.\n")
 
     # Simulate the race with randomized speeds for each horse
     horse_speeds = {horse: r.randint(10, 20) for horse in horses}  # Random speeds between 10-20
@@ -47,12 +48,12 @@ def horse_race(money):
 
     # Determine if the player won or lost
     if bet_horse == winner:
-        winnings = bet_amount * odds[bet_horse]
+        winnings = bet * odds[bet_horse]
         anim_print(f"Congratulations! You won {winnings:.0f} euros!\n")
         money += winnings
     else:
-        anim_print(f"You lost {bet_amount} euros bozo.\n")
-        money -= bet_amount
+        anim_print(f"You lost {bet} euros bozo.\n")
+        money -= bet
 
     anim_print(f"Your total balance is now {money:.0f} euros.\n")
     return money
@@ -62,12 +63,14 @@ def horse_race(money):
 # Blackjack game
 def blackjack(money):
     def deal_card():
-        """Deals a random card from the deck."""
+
+        ## Deals a random card from the deck.
         cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'] * 4
         return r.choice(cards)
 
     def calculate_hand_value(hand):
-        """Calculates the value of a hand of cards."""
+
+        ## Calculates the value of a hand of cards.
         card_values = {
             '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10,
             'J': 10, 'Q': 10, 'K': 10, 'A': 11
@@ -84,7 +87,8 @@ def blackjack(money):
         return value
 
     def display_hand(player, hand, hide_dealer_card=False):
-        """Displays the player's or dealer's hand. Optionally hides the dealer's second card."""
+
+        ## Displays the player's or dealer's hand. Optionally hides the dealer's second card.
         if hide_dealer_card:
             hand_display = [hand[0], "Hidden"]
             anim_print(f"{player}'s hand: {', '.join(hand_display)}\n")
@@ -93,10 +97,11 @@ def blackjack(money):
 
     print("Welcome to Blackjack!")
 
-    bet = int(input("How much do you want to bet: "))
-    if bet > money:
-        anim_print("You don't have enough money!\n")
-        return money
+    bet = input(anim_print("How much do you want to bet: "))
+    bet = int_check(bet)
+    while bet > money:
+        bet = input(anim_print("Broke ass, bet less: "))
+        bet = int_check(bet)
 
     player_hand = [deal_card(), deal_card()]
     dealer_hand = [deal_card(), deal_card()]
@@ -142,25 +147,30 @@ def blackjack(money):
 
 
 
-# Casino function with Blackjack
+# Casino function
 def casino(money):
+    clear_window()
     game_select = ""
-
     gameoptions = ["SNAKE EYES", "HILO", "DICE", "BLACKJACK", "HORSE RACING", "RETURN"]
 
+    anim_print("Welcome to the casino!")
     while game_select != gameoptions[5]:
-        game_select = input(anim_print("Choose a game to play (dice, hilo, snake eyes, blackjack, horse racing) or go back (return): ")).upper()
-        if game_select not in gameoptions:
-            anim_print("Invalid selection\n")
-            continue
 
+        if money <= 0: # Check if player has money
+            anim_print("You dont have any money, what are you doing at the casino?")
+            break
+
+        game_select = input(anim_print("\nChoose a game to play (dice, hilo, snake eyes, blackjack, horse racing) or go back (return): ")).upper()
+        while game_select not in gameoptions:
+            game_select = input(anim_print("Invalid selection, try again: ")).upper()
+            
         if game_select != gameoptions[5]:
             if game_select == gameoptions[2]:  # Dice game
-                bet = input("How much do you want to bet: ")
+                bet = input(anim_print("How much do you want to bet: "))
                 bet = int_check(bet)
-                if bet > money:
-                    anim_print("Broke ass\n")
-                    continue
+                while bet > money:
+                    bet = input(anim_print("Broke ass, bet less: "))
+                    bet = int_check(bet)
                 dealer_dice1, dealer_dice2 = r.randint(1, 6), r.randint(1, 6)
                 player_dice1, player_dice2 = r.randint(1, 6), r.randint(1, 6)
                 dealer_total = dealer_dice1 + dealer_dice2
@@ -177,14 +187,17 @@ def casino(money):
                     anim_print("It's a tie!\n")
                 anim_print(f"Your total balance is {money} euros\n")
             elif game_select == gameoptions[1]:  # Hi-Lo
-                bet = input("How much do you want to bet: ")
+                bet = input(anim_print("How much do you want to bet: "))
                 bet = int_check(bet)
-                if bet > money:
-                    anim_print("You don't have enough money\n")
-                    continue
+                while bet > money:
+                    bet = input(anim_print("\nBroke ass, bet less: "))
+                    bet = int_check(bet)
+
                 first_card = r.randint(1, 13)
                 anim_print(f"First card: {first_card}\n")
-                guess = input("Will the next card be higher or lower (HI/LO)? ").upper()
+                guess = input(anim_print("Will the next card be higher or lower (HI/LO): ")).upper()
+                while guess != "HI" and guess != "LO":
+                    guess = input(anim_print("Invalid input, try again (HI/LO): ")).upper()
                 second_card = r.randint(1, 13)
                 anim_print(f"Second card: {second_card}\n")
                 if (guess == 'HI' and second_card > first_card) or (guess == 'LO' and second_card < first_card):
@@ -194,11 +207,13 @@ def casino(money):
                     anim_print(f"You lost {bet} euros\n")
                     money -= bet
                 anim_print(f"Your total balance is {money} euros\n")
+
             elif game_select == gameoptions[0]:  # Snake Eyes
-                bet = int(input("How much do you want to bet: "))
-                if bet > money:
-                    anim_print("You don't have enough money\n")
-                    continue
+                bet = input(anim_print("How much do you want to bet: "))
+                bet = int_check(bet)
+                while bet > money:
+                    bet = input(anim_print("\nBroke ass, bet less: "))
+                    bet = int_check(bet)
                 dice_1, dice_2 = r.randint(1, 6), r.randint(1, 6)
                 anim_print(f"You rolled: {dice_1} and {dice_2}\n")
                 if dice_1 == dice_2 == 1:
@@ -211,13 +226,12 @@ def casino(money):
                     anim_print(f"You lost {bet} euros bozo\n")
                     money -= bet
                 anim_print(f"Your total balance is {money} euros\n")
+
             elif game_select == gameoptions[3]:  # Blackjack
                 money = blackjack(money)
 
-            elif game_select==gameoptions[4]:
-                money=horse_race(money)
+            elif game_select==gameoptions[4]: # Horse racing
+                money = horse_race(money)
         else:
             anim_print(f"Your total balance is {money} euros\n")
             return money
-
-#monke

@@ -23,6 +23,8 @@ A rough voice speaks at you.
 "Lets flip a coin for who goes first"           
 """)
     coin_flip = input(anim_print("Heads or tails: ")).upper()
+    while coin_flip != "HEADS" and coin_flip != "TAILS":
+        coin_flip = input(anim_print("Invalid choice. type Heads or tails: ")).upper()
     coin_flip_result = r.randint(1,2)
     if (coin_flip_result == 1 and coin_flip == "HEADS") or (coin_flip_result == 2 and coin_flip == "TAILS"):
         anim_print("""Player goes first.\n""")
@@ -83,6 +85,7 @@ def random_event():
     event_cp = 0
     player_death = False
     roulette_played = False
+    pdiddy_ending = False
     kidney = 2
     shark = 1
     if len(event_list) == 0:
@@ -98,20 +101,24 @@ Strange people these days.
     # 9/11 event, needs content or to be changed to something else
     elif "9/11" == event_list[event_check]:
         anim_print("""You are chilling at the airport watching news as you wait for your next flight.
-You see on the news that a airport you were earlier got hit with a terrorist attack.
-The Shark is slowed down by this.""")
+You see on the news that an airport you were earlier got hit with a terrorist attack.
+The Shark is slowed down by this.
+""")
         shark += 2
         event_list.remove("9/11")
     # Mother event, Mother calls and gives money
     elif "Mother" == event_list[event_check]:
         anim_print("""Your mother is calling you, do you wish to pick up?\n""")
         call_answer = input(anim_print("Yes/No: ")).upper()
+        while call_answer != "YES" and call_answer != "NO":
+            call_answer = input(anim_print("Invalid choice, type Yes/No: ")).upper()
+
         if call_answer == "YES":
             mother_money = r.randint(300,700)
-            anim_print(f"""You picked up the phone.              
-You hear your mothers voice.                
-"Hello my child, i hear you are in a bit of a tight spot."              
-"I will send you some money"                
+            anim_print(f"""You picked up the phone.
+You hear your mothers voice.
+"Hello my child, i hear you are in a bit of a tight spot."
+"I will send you some money"
 You got {mother_money}€ from your mother.
 """)
             event_money = mother_money
@@ -125,33 +132,44 @@ You got {mother_money}€ from your mother.
 He offers to buy your kidney
 Do you accept?
 """)
-        kidney_sold = input(anim_print("Yes/no: ")).upper()
+        kidney_sold = input(anim_print("Yes/No: ")).upper()
+        while kidney_sold != "YES" and kidney_sold != "NO":
+            kidney_sold = input(anim_print("Invalid choice, type Yes/No: ")).upper()
+
         if kidney_sold == "YES":
             kidney_money = r.randint(1500,3500)
             kidney = 1
             anim_print(f"You sold your kidney for {kidney_money}€")
             event_money = kidney_money
+        else:
+            anim_print("You refused the organ sellers offer.")
+
         event_list.remove("organ seller")
     
     # Russian roulette, The Shark calls you and offers to play a game. Ends game if russian roulette is played
     elif "Loanshark" == event_list[event_check]:
         anim_print("The loanshark is calling you, do you wish to pick up?\n")
         call_answer = input(anim_print("Yes/No: ")).upper()
-        
+
+        while call_answer != "YES" and call_answer != "NO":
+            call_answer = input(anim_print("Invalid choice, type Yes/No: ")).upper()
         if call_answer == "YES":
             anim_print("""You chose to answer the phone.
 He gives you a choice.
 1. Play russain roulette with him to settle your debt.
 2. Continue the chase.
 """)
-            choice = input(anim_print("What is your choice: ")) # FIX LATER
+            choice = input(anim_print("What is your choice: "))
             choice = int_check(choice)
+            while choice not in range(1,3):
+                choice = input(anim_print("What is your choice: "))
+                choice = int_check(choice)
             if choice == 1:
                 anim_print("You chose to play russian roulette.")
                 player_death = russian_roulette()
                 roulette_played = True
             elif choice == 2:
-                anim_print("You declined his offer. The chase continues")
+                anim_print("You declined his offer. The chase continues.")
         else:
             anim_print("You chose to not pick up.")
             
@@ -183,16 +201,25 @@ You decide to throw a pool party at the airports lounge.
 It cost you {pool_money}€. """)
         event_money -= pool_money
     elif "PDiddy" == event_list[event_check]:
-        anim_print("""You meet PDiddy at the airport.
-He sees you and aproaches, greeting you.
-
+        anim_print("""You meet P.Diddy at the airport.
+He sees that you are troubled and offers to help you.
 """)
+        pdiddy_choice = input(anim_print("Do you accept? (Yes/No): ")).upper()
+        while pdiddy_choice != "YES" and pdiddy_choice != "NO":
+            pdiddy_choice = input(anim_print("Do you accept? (Yes/No): ")).upper()
+        
+        if pdiddy_choice == "YES":
+            anim_print("""You accepted P.Diddys offer and you join him for his party.
+""")
+            pdiddy_ending = True
+        else:
+            anim_print("You declined his offer.")
+        
+        event_list.remove("PDiddy")
     # Insert new event above
     # end of random events
     else:
         event_check = r.randint(0,len(event_list)-1)
     time.sleep(2)
-    return event_money, event_cp, kidney, player_death, roulette_played, shark
-
-
+    return event_money, event_cp, kidney, player_death, roulette_played, pdiddy_ending, shark
 
