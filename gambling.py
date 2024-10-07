@@ -148,7 +148,7 @@ def blackjack(money):
 
 
 # Casino function
-def casino(money):
+def casino(money:int):
     clear_window()
     game_select = ""
     gameoptions = ["SNAKE EYES", "HILO", "DICE", "BLACKJACK", "HORSE RACING", "RETURN"]
@@ -157,7 +157,7 @@ def casino(money):
     while game_select != gameoptions[5]:
 
         if money <= 0: # Check if player has money
-            anim_print("You dont have any money, what are you doing at the casino?")
+            anim_print("\nYou dont have any money, what are you doing at the casino?")
             break
 
         game_select = input(anim_print("\nChoose a game to play (dice, hilo, snake eyes, blackjack, horse racing) or go back (return): ")).upper()
@@ -235,3 +235,4 @@ def casino(money):
         else:
             anim_print(f"Your total balance is {money} euros\n")
             return money
+    return money
