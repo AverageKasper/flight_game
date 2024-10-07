@@ -24,15 +24,15 @@ Main gameplay loop ehkä
 ![image](https://github.com/user-attachments/assets/e1050929-a54e-4af6-ba68-8142ed86f489)
 
 ### Tasks made
+
+- Dumpster Diving  / small
+- Pickpocketing / small
 - Trivia * / medium
-_ Dumpster Diving * / small
+- Part-time Work / medium
 - Gambling * / large
+- Smoking / large
 * - needs work
 ### Task Ideas
-- Dialogue
--- Helping travelers with simple tasks like directions, baggage handling, or language translation (based on choosing the correct options in a dialogue or action tree).
-- Part-time Work
-- Pickpocketing
 - 
 ### Random event ideas
 - Call mother for allowance

@@ -1,51 +1,28 @@
 from utilities import anim_print
 import random as r
+
 # Function for dumpster diving at small airports, returns gained currencies
 def dumpster_dive():
     money = 0
     cp = 0
     phallic_object = 0
     
-    find =  r.randint(1,10)
-    if find == 1:
-        trash_money = r.randint(50, 200)
-        anim_print(f"\nYou found {trash_money} € from the trash!")
+    find =  r.randint(1,100)
+    if find < 40:
+        trash_money = r.randint(50, 150)
+        anim_print(f"\nYou found a portable dvd player from the trash, you got {trash_money}€ for it at the pawn shop!")
         money += trash_money
-    elif find == 2:
-        trash_money = r.randint(50, 200)
-        anim_print(f"\nYou found {trash_money} € from the trash!")
+    elif find >= 40 and find <=60:
+        trash_money = r.randint(200, 400)
+        anim_print(f"\nYou found a pair of earbuds from the trash, you got {trash_money} for it at the pawn shop!")
+    elif find > 60 and find <= 80:
+        trash_money = r.randint(500, 700)
+        anim_print(f"\nYou found an IPhone XS in the trash, you got {trash_money}€ for it at the pawn shop!")
         money += trash_money
-    elif find == 3:
-        trash_money = r.randint(50, 200)
-        anim_print(f"\nYou found {trash_money} € from the trash!")
-        money += trash_money
-    elif find == 4:
-        trash_money = r.randint(50, 200)
-        anim_print(f"\nYou found {trash_money} € from the trash!")
-        money += trash_money
-    elif find == 5:
-        trash_money = r.randint(50, 200)
-        anim_print(f"\nYou found {trash_money} € from the trash!")
-        money += trash_money
-    elif find == 6:
-        trash_money = r.randint(50, 200)
-        anim_print(f"\nYou found {trash_money} € from the trash!")
-        money += trash_money
-    elif find == 7:
-        trash_money = r.randint(50, 200)
-        anim_print(f"\nYou found {trash_money} € from the trash!")
-        money += trash_money
-    elif find == 8:
-        trash_money = r.randint(50, 200)
-        anim_print(f"\nYou found {trash_money} € from the trash!")
-        money += trash_money
-    elif find == 9:
-        trash_money = r.randint(300, 500)
-        anim_print(f"\nHUGE!! You found {trash_money} € from the trash!")
-        money += trash_money
-    elif find == 10:
+    elif find > 80 and find <=95:
         anim_print(f"\nYou found a voucher for CP from the trash! You got 500 CP")
         cp += 500
-        anim_print(f"\nYou found 1 phallic object from the trash!")
+    elif find>95 and find <= 100:
+        anim_print(f"\nYou found 1 phallic object from the trash! It smells wierd.")
         phallic_object += 1
     return money, cp, phallic_object
