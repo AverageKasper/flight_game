@@ -1,7 +1,7 @@
+# Basic imports
 import random as r
 import time
 
-import mysql.connector
 #Task Scripts
 from triviasql import trivia_game
 from gambling import casino
@@ -23,14 +23,20 @@ from smoking import smoking_action
 
 
 # Variables
-game_end = False
-command = ""
+## Difficulty changes
+easy_balance = 2500
+easy_cp = 10000
+easy_shark = 7
 debt = 10000
 balance = 1000
 cp = 7000
+loan_shark = 4
 hard_debt = 20000
 hard_balance = 0
 hard_cp = 4000
+hard_shark = 2
+
+game_end = False
 airport_name = "Helsinki Vantaa Airport"
 airport_country = "FI"
 airport_type = "large_airport"
@@ -41,12 +47,14 @@ actions_per_airport = 2
 # What if when you go to a small airport the event counter goes down by 1, medium goes by 2, and large goes by 3. and events are some good some bad, more bad
 kidney = 2
 event_counter = 6
-loan_shark = 2
+smoking_death = False
+stabbed = False
+joint_death = False
 airports_travelled = 0
-
+death_list = []
 # Airport moving
 def airport_options(type):
-    sql = f"select name, iso_country, type from airport where type = '{type}' and name not like 'CLICK%' order by rand() limit 1;"
+    sql = f"select name, iso_country, type from airport where type = '{type}' and name not like 'CLICK%' and name not like '%?%' order by rand() limit 1;"
     cursor = conn.cursor()
     cursor.execute(sql)
     list = cursor.fetchall()
@@ -117,7 +125,7 @@ Things to do at this airport:
         task_choice = input(anim_print("What do you want to do: "))
         task_choice = int_check(task_choice)
         # Checks if task_choice is  valid
-        while task_choice != 1 and task_choice != 2:
+        while task_choice not in range(1,4):
             task_choice = input("Invalid option, try again: ")
             task_choice = int_check(task_choice)
 
@@ -163,7 +171,7 @@ Things to do at this airport:
         task_choice = int_check(task_choice)
 
         # Checks if task_choice is  valid
-        while task_choice != 1 and task_choice != 2:
+        while task_choice not in range(1,4):
             task_choice = input("Invalid option, try again: ")
             task_choice = int_check(task_choice)
         if task_choice == 1:
@@ -201,15 +209,21 @@ if game_choice == "RULES":
 
 # Difficulty choice
 anim_print(f"""Difficulties:
-Normal: Debt is {debt}, starting money is {balance} and cp is {cp}
-Hard: Debt is {hard_debt}, starting money is {hard_balance} and cp is {hard_cp}
+Easy: Debt is {debt}, starting money is {easy_balance}, cp is {easy_cp} and the Shark starts {easy_shark} steps behind.
+Normal: Debt is {debt}, starting money is {balance} and cp is {cp} and the Shark starts {loan_shark} steps behind.
+Hard: Debt is {hard_debt}, starting money is {hard_balance} and cp is {hard_cp} and the Shark starts {hard_shark} steps behind.
 """)
 difficulty_choice = input(anim_print("Choose a difficulty: ")).upper()
-while difficulty_choice != "NORMAL" and difficulty_choice != "HARD":
+while difficulty_choice != "NORMAL" and difficulty_choice != "HARD" and difficulty_choice != "EASY":
     difficulty_choice = input(anim_print("Incorrect choice. Choose a difficulty: ")).upper()
+if difficulty_choice == "EASY":
+    balance = easy_balance
+    cp = easy_cp
+    loan_shark = easy_shark
 if difficulty_choice == "HARD":
     balance = hard_balance
     cp = hard_cp
+    loan_shark = hard_shark
     debt = hard_debt
 
 clear_window()
@@ -217,8 +231,10 @@ clear_window()
 anim_print(f"""You are {debt}€ in debt with {balance}€ in your bank.
 You have {cp}CP to fly around with.
 """)
+
 # Main game loop
 while game_end == False:
+
     # Change airport part
     small_airport = airport_options("small_airport")
     medium_airport = airport_options("medium_airport")
@@ -270,9 +286,11 @@ while game_end == False:
     # Task loop
     while actions_per_airport !=0:
 
-        anim_print(f"\nYou are at {airport_name}, {airport_country}")
-        anim_print(f"\nYou have {cp}CP left.\n")
-        anim_print(f"You have {balance}€.")
+        anim_print(f"""You are at {airport_name}, {airport_country}
+You have {cp}CP left.
+You have {balance}€.
+You need {debt - balance}€ to clear your debt.
+""")
         # Goes to small airport task function
         if airport_type == "small_airport":
             temp_money,temp_cp, small_phallic_object, loan_shark = s_airport_task(loan_shark)
@@ -302,7 +320,7 @@ while game_end == False:
     if cp < airport_cp_cost[0]:
         clear_window()
         anim_print(f"""\nYou have run out of CP to continue flying.
-                   """)
+""")
         
         
         game_end = True
@@ -311,8 +329,10 @@ while game_end == False:
         if balance > debt:
             anim_print("""\nYou've been caught by the Shark.
 Throughout your journey you have managed to gather enough money to pay him back.
+You found your way back home and can now rest easy..
 GOOD ENDING
 """)
+            break
         elif balance < debt and phallic_object > 0 and cp > airport_cp_cost[0]:
             anim_print("""\nYou've been caught by the Shark...
 You did not manage to gather enouth money on time but you feel 
@@ -321,7 +341,7 @@ and smack the poor guy right in the testies. He never stood a chance...
 You manage to get away this time and get another chance to gather the money!
 """)        
             phallic_object -= 1
-            loan_shark += 2
+            loan_shark += 3
             continue
 
 
@@ -333,8 +353,12 @@ BAD ENDING
 """)
 
         game_end = True
+        break
+
     actions_per_airport = 2
     task_active = True
+
+    
 
     # Random event. If counter reaches 0 or under, executes random event script
     if event_counter <= 0:
@@ -352,7 +376,7 @@ BAD ENDING
 Your body was never found. 
 BRUTAL ENDING
 """)
-                time.sleep(3)
+                loading()
                 break
 
             # Ending lore for the russian roulette, if the player surrvives
@@ -363,7 +387,7 @@ You found a list of names in the office.
 Time to go hunting.
 VILLAIN ENDING
 """)
-                time.sleep(3)
+                loading()
                 break
         event_counter = 6
 
@@ -385,7 +409,9 @@ Munttu
 Kasper Paredes Aalto
 Alexander Wolff
 Special thanks to:
-Googling shit""")
+Googling shit
+ඞ
+""")
 anim_print("""
 ———————————No bitches?———————————
 ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝
@@ -409,6 +435,9 @@ input()
 # Make more tasks
 #
 # List of problems: 
+# smoking prints wrong balance
+# Make shit pg(K12)
+# 
 #
 # ENDINGS to make
 #KIDNEY ENDING
