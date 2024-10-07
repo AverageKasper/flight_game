@@ -39,3 +39,8 @@ Main gameplay loop ehkä
 - You meet a Black market Organ dealer, you can sell your kidney
 - 9/11 2
 - P Diddy encounter
+
+### Finished scripts
+- dumpster.py
+- gambling.py
+- pickpocket.py (could add prosentage based money loss(10% of total money))

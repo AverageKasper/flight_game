@@ -61,16 +61,19 @@ def airport_options(type):
     return list[0]
 
 # Function for next airport
-def airport_chooser(cod_points, euro,shark):
-    anim_print (f"""\nYou are at {airport_name},{airport_country}.
+def airport_chooser(cod_points, euro, shark):
+    anim_print (f"""
+You are at {airport_name},{airport_country}.
 You have {cod_points}CP left and {euro}€ in the bank.
+You need {debt - euro}€ to clear your debt.
 The Shark is {shark} airports behind...
 Your next airport options are:
 1. {small_airport[0]}, {small_airport[1]}: 100CP
 2. {medium_airport[0]}, {medium_airport[1]}: 200CP
-3. {large_airport[0]}, {large_airport[1]}: 500CP""")
-    next_airport = input(anim_print("\nSelect airport number: "))
-    next_airport= int_check(next_airport)
+3. {large_airport[0]}, {large_airport[1]}: 500CP
+""")
+    next_airport = input(anim_print("Select airport number: "))
+    next_airport = int_check(next_airport)
     return next_airport
 
 # Small airport tasks
@@ -80,7 +83,10 @@ def s_airport_task(shark):
     small_phallic_object = 0
     actions_left = 2
     while actions_left > 0:
-        anim_print(f"""\nThe Shark is {shark} airports behind...
+        anim_print(f"""
+You are at {airport_name}, {airport_country}
+You have {cp + small_cp}CP and you have {balance + small_money}€. You need {debt - (balance +small_money)}€ to clear your debt.
+The Shark is {shark} airports behind...
 Things to do at this airport:
 1. Dumpster dive
 2. Pickpocket
@@ -117,7 +123,10 @@ def m_airport_task(shark):
     total_cp = 0
     actions_left = 2
     while actions_left >0:
-        anim_print(f"""\nThe Shark is {shark} airports behind...
+        anim_print(f"""
+You are at {airport_name}, {airport_country}
+You have {cp + total_cp}CP and you have {balance + total_money}€. You need {debt - (balance + total_money)}€ to clear your debt.
+The Shark is {shark} airports behind...
 Things to do at this airport:
 1. Trivia
 2. Go to the next airport
@@ -154,14 +163,14 @@ Things to do at this airport:
 
 # Large airport tasks
 def l_airport_task(current_money,shark):
-
-    large_money = 0
-    large_cp = 0
     total_money = current_money
     total_cp = 0
     actions_left = 2
     while actions_left >0:
-        anim_print(f"""\nThe Shark is {shark} airports behind...
+        anim_print(f"""
+You are at {airport_name}, {airport_country}
+You have {cp}CP and you have {total_money}€. You need {debt - total_money}€ to clear your debt.
+The Shark is {shark} airports behind...
 Things to do at this airport:
 1. Gamble
 2. Smoking break
@@ -175,12 +184,11 @@ Things to do at this airport:
             task_choice = input("Invalid option, try again: ")
             task_choice = int_check(task_choice)
         if task_choice == 1:
-            large_money = casino(total_money)
-            total_money = large_money
+            total_money = casino(total_money)
             shark -= 1
             actions_left -= 1
         elif task_choice == 2:
-            temp_money, player_death=smoking_action()
+            temp_money, player_death, stabbed, fighting_death, salvia_death=smoking_action()
             total_money+=temp_money
             shark-=1
             actions_left -= 1
@@ -207,6 +215,7 @@ if game_choice == "RULES":
     clear_window()
     rule_print()
 
+
 # Difficulty choice
 anim_print(f"""Difficulties:
 Easy: Debt is {debt}, starting money is {easy_balance}, cp is {easy_cp} and the Shark starts {easy_shark} steps behind.
@@ -227,11 +236,6 @@ if difficulty_choice == "HARD":
     debt = hard_debt
 
 clear_window()
-# Small beginning lore
-anim_print(f"""You are {debt}€ in debt with {balance}€ in your bank.
-You have {cp}CP to fly around with.
-""")
-
 # Main game loop
 while game_end == False:
 
@@ -242,7 +246,10 @@ while game_end == False:
 
     # Go to airport choosing function
     next_airport = airport_chooser(cp,balance,loan_shark)
-
+    while next_airport not in range(1,5):
+        next_airport = input(anim_print("Invalid selection. Select airport number: "))
+        next_airport = int_check(next_airport)
+    
     # Check what airport was chosen
     if next_airport == 1:
         if cp < airport_cp_cost[0]:
@@ -286,11 +293,6 @@ while game_end == False:
     # Task loop
     while actions_per_airport !=0:
 
-        anim_print(f"""You are at {airport_name}, {airport_country}
-You have {cp}CP left.
-You have {balance}€.
-You need {debt - balance}€ to clear your debt.
-""")
         # Goes to small airport task function
         if airport_type == "small_airport":
             temp_money,temp_cp, small_phallic_object, loan_shark = s_airport_task(loan_shark)
@@ -298,14 +300,15 @@ You need {debt - balance}€ to clear your debt.
             cp += temp_cp
             phallic_object += small_phallic_object
             break
+
+        # Goes to medium airport task function
         elif airport_type == "medium_airport":
             temp_money,temp_cp,loan_shark = m_airport_task(loan_shark)
             balance += temp_money
             cp += temp_cp
             break
         elif airport_type == "large_airport":
-            temp_money,temp_cp,loan_shark = l_airport_task(balance, loan_shark)
-            balance = temp_money
+            balance,temp_cp,loan_shark = l_airport_task(balance, loan_shark)
             cp += temp_cp
             break
 
@@ -362,10 +365,16 @@ BAD ENDING
 
     # Random event. If counter reaches 0 or under, executes random event script
     if event_counter <= 0:
-        event_money, event_cp, kidney, player_death, roulette_played, shark = random_event()
+        event_money, event_cp, kidney, player_death, roulette_played, pdiddy_ending, shark = random_event()
         balance += event_money
         cp += event_cp
         loan_shark += shark
+
+        if pdiddy_ending == True:
+            anim_print("""You've become best friends with Sensei Diddy.
+He paid off your loan to the shark in return for your pledge to party with him for the end of time.
+P.DIDDY ENDING
+""")
 
         # Results of russian roulette if played
         if roulette_played == True:
