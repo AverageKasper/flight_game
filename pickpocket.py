@@ -11,6 +11,8 @@ def pickpocket():
     dif3 = "★★★"
     dif4 = "★★★★"
     dif5 = "★★★★★"
+
+    # List of possible targets and difficulty
     steal_list = {"Homeless man" : dif1,
                   "Elderly lady" : dif1,
                   "Random kid" : dif1,
@@ -29,7 +31,8 @@ def pickpocket():
                   "Sausage man" : dif5,
                   "Juha" : dif5,
                   }
-    
+    clear_window()
+    # Randomizes thieving targets
     name1 ,difficulty1 = r.choice(list(steal_list.items()))
     del steal_list[name1]
     name2 ,difficulty2 = r.choice(list(steal_list.items()))
@@ -72,10 +75,10 @@ def pickpocket():
     roll = r.randint(1, 100)
     
     if roll <= success_chance:
-        anim_print(f"Success! You successfully pickpocketed {chosen_name} and earned {reward}€.")
+        anim_print(f"\nSuccess! You successfully pickpocketed {chosen_name} and earned {reward}€.")
         money_sum += reward
     else:
-        anim_print(f"Failure! You got caught trying to pickpocket {chosen_name}. You got fined for {penalty}€.")
+        anim_print(f"\nFailure! You got caught trying to pickpocket {chosen_name}. You got fined for {penalty}€.")
         money_sum -= penalty
 
     return money_sum

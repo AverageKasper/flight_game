@@ -156,7 +156,8 @@ def casino(money):
 
         if game_select != gameoptions[5]:
             if game_select == gameoptions[2]:  # Dice game
-                bet = int(input("How much do you want to bet: "))
+                bet = input("How much do you want to bet: ")
+                bet = int_check(bet)
                 if bet > money:
                     anim_print("Broke ass\n")
                     continue
@@ -176,7 +177,8 @@ def casino(money):
                     anim_print("It's a tie!\n")
                 anim_print(f"Your total balance is {money} euros\n")
             elif game_select == gameoptions[1]:  # Hi-Lo
-                bet = int(input("How much do you want to bet: "))
+                bet = input("How much do you want to bet: ")
+                bet = int_check(bet)
                 if bet > money:
                     anim_print("You don't have enough money\n")
                     continue

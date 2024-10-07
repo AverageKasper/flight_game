@@ -7,14 +7,14 @@ import sys
 conn = mysql.connector.connect(
                 host='localhost',
                 database='flight_game',
-                user='root',
-                password='K1rahV1!',
+                user='kasper',
+                password='Monkey',
                 autocommit=True,
                 collation="utf8mb4_general_ci"
                 )
 
 # Animated print function
-def anim_print(text, delay=0.02):
+def anim_print(text, delay=0.0):
     for char in text:
         print(char, end="", flush=True)
         time.sleep(delay)
@@ -22,12 +22,12 @@ def anim_print(text, delay=0.02):
 
 # Loading screen animation if ever needed
 def loading():
-    snail = '🛬'
+    plane = '🛬'
     trail = '-'
     width = 20  # Adjust the width 
     spaces = 0
     while spaces <= width:
-        sys.stdout.write('\r' + ' ' * spaces + snail + trail * (width - spaces))
+        sys.stdout.write('\r' + ' ' * spaces + plane + trail * (width - spaces))
         sys.stdout.flush()
         time.sleep(0.2)
         spaces += 1
@@ -36,7 +36,7 @@ def loading():
 def clear_window():
     os.system('cls' if os.name=='nt' else 'clear')
 
-# Checks if value can be changed to int, used when need for number
+# Checks if value can be changed to int, used when a number is needed for an answer
 def int_check(player_input):
     while player_input is not int:
         try:
