@@ -232,3 +232,6 @@ def smoking_action():
         money+=black_money
 
     return money, player_death, stabbed, fighting_death, salvia_death
+
+
+#Monke
