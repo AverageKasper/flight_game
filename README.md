@@ -44,3 +44,4 @@ Main gameplay loop ehkä
 - dumpster.py
 - gambling.py
 - pickpocket.py (could add prosentage based money loss(10% of total money))
+- random_events.py

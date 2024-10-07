@@ -200,6 +200,8 @@ Tough luck.""")
 You decide to throw a pool party at the airports lounge.
 It cost you {pool_money}€. """)
         event_money -= pool_money
+
+    # P.Diddy offers you help
     elif "PDiddy" == event_list[event_check]:
         anim_print("""You meet P.Diddy at the airport.
 He sees that you are troubled and offers to help you.

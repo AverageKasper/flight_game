@@ -1,4 +1,3 @@
-
 from utilities import anim_print, clear_window
 import time
 import random
@@ -37,7 +36,7 @@ def start_fighting(salvia_mode=False):
         "health": 100,
         "attacks": {
             "Bite": (8, 18),
-            "Claw": (12, 22),
+            "Claw": (12, 25),
             "Crotch grab": (18, 30)
         }
     }
@@ -140,7 +139,7 @@ def smoking_action():
 
 
 
-
+# John Player Special
     if cig==cigarette_brands[3]:
         anim_print("You chose the John Player Special, spicy choice\n")
         time.sleep(1)
@@ -154,7 +153,8 @@ def smoking_action():
                 anim_print("You accepted and received a rough treatment in a back alley\n")
                 time.sleep(2)
                 anim_print("While you're getting treated, a mysterious guy comes up behind you and stabs you\n")
-                stabbed=True
+                player_death = True
+                stabbed = True
                 time.sleep(3)
                 clear_window()
 
@@ -167,7 +167,7 @@ def smoking_action():
                 clear_window()
 
         elif bum=="NO":
-            anim_print("You denied the cigarette from the stranger\n")
+            anim_print("You denied to give a cigarette to the stranger\n")
             time.sleep(2)
             anim_print("You're done smoking and get ready for your next flight\n")
             time.sleep(2)
@@ -178,7 +178,7 @@ def smoking_action():
         anim_print("You chose Marlboro Red, a classic choice\n")
         time.sleep(1)
         anim_print("While smoking you start talking to a Japanese businessman\n")
-        random_bucks=random.randint(1, 1200)
+        random_bucks=random.randint(1, 1500)
         businessman=input(anim_print(f"The businessman offers you {random_bucks}€. Do you accept: \n")).upper()
         if businessman=="YES":
             money+=random_bucks
@@ -192,7 +192,6 @@ def smoking_action():
 
 
     # Marlboro Gold
-
     elif cig==cigarette_brands[1]:
         anim_print("You chose Marlboro Gold\n")
         time.sleep(1)
@@ -238,7 +237,6 @@ def smoking_action():
         time.sleep(1)
         player_death=start_fighting(salvia_mode=True)
         if player_death==True:
-            fighting_death=True
             salvia_death=True
         time.sleep(2)
         clear_window()
