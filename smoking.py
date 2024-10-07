@@ -21,6 +21,7 @@ def print_boxed_list(items):
 
 # Tappelu funktio
 def start_fighting(salvia_mode=False):
+    player_death=False
     player = {
         "name": "Player",
         "health": 100,
@@ -48,7 +49,7 @@ def start_fighting(salvia_mode=False):
             "Hallucination kick": (20, 40),
             "Salvia rage": (25, 50)
         }
-        enemy["name"] = "Single mother"
+        enemy["name"] = "Bystander"
         enemy["health"] = 80
 
     # Attack function
@@ -109,9 +110,9 @@ def start_fighting(salvia_mode=False):
             # Check if player is dead immediately after attack
             if player["health"] <= 0:
                 anim_print("You have been killed!\n")
-                return True  # Player dies, return True to signal death and stop the fight
+                return player_death
 
-            turn = "player"  # Switch to player's turn
+            turn = "player"
 
     print("The fight is over!")
 
@@ -150,16 +151,13 @@ def smoking_action():
                 time.sleep(2)
                 anim_print("While you're getting treated, a mysterious guy comes up behind you and stabs you\n")
                 stabbed=True
-                return money, player_death, stabbed
 
 
             elif handjob=="NO":
                 anim_print("You denied the strangers offer and continued smoking\n")
-                return money, player_death, stabbed
 
         elif bum=="NO":
             anim_print("You denied the cigarette from the stranger\n")
-            return money, player_death,stabbed
 
     # Marlboro Red
     elif cig==cigarette_brands[0]:
@@ -169,10 +167,9 @@ def smoking_action():
         businessman=input(anim_print("The businessman offers you 1000€. Do you accept: \n")).upper()
         if businessman=="YES":
             money+=1000
-            anim_print(f"Your balance now is {money}€\n")
-            return money, player_death, stabbed
         elif businessman=="NO":
-             return money, player_death, stabbed
+            anim_print(f"You didn't get money")
+
 
     # Marlboro Gold
 
@@ -180,6 +177,7 @@ def smoking_action():
         anim_print("You chose Marlboro Gold\n")
         time.sleep(1)
         anim_print("You start smoking indoors and people around you start getting agitated\n")
+        time.sleep(1)
         angry_person=input(anim_print("An angry person asks you to stop and threatens to attack you, do you stop smoking (Yes or No): \n")).upper()
         if angry_person=="NO":
             player_death=start_fighting()
@@ -209,10 +207,11 @@ def smoking_action():
         time.sleep(1)
         anim_print("You wake up and feel extremely violent and confused \n")
         time.sleep(1)
-        anim_print("You attack a single mother while still being under the influence \n")
+        anim_print("You attack a random bystander while still being under the influence \n")
         player_death=start_fighting(salvia_mode=True)
         if player_death==True:
             fighting_death=True
+            salvia_death=True
 
 
     # American Black
@@ -234,4 +233,4 @@ def smoking_action():
     return money, player_death, stabbed, fighting_death, salvia_death
 
 
-#Monke
+#Monke 69
