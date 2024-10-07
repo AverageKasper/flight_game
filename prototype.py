@@ -192,10 +192,12 @@ Things to do at this airport:
             total_money+=temp_money
             shark-=1
             actions_left -= 1
+            if player_death == True:
+                return total_money, total_cp, shark, player_death, stabbed, fighting_death, salvia_death
         elif task_choice == 3:
             clear_window()
             break
-    return total_money, total_cp, shark
+    return total_money, total_cp, shark, player_death, stabbed, fighting_death, salvia_death
 
 
 
@@ -308,7 +310,7 @@ while game_end == False:
             cp += temp_cp
             break
         elif airport_type == "large_airport":
-            balance,temp_cp,loan_shark = l_airport_task(balance, loan_shark)
+            balance,temp_cp,loan_shark, player_death, stabbed, fighting_death, salvia_death = l_airport_task(balance, loan_shark)
             cp += temp_cp
             break
 
@@ -357,48 +359,76 @@ BAD ENDING
 
         game_end = True
         break
+    if player_death == True: #player_death, stabbed, fighting_death, salvia_death
+        if stabbed == True:
+            anim_print("""You got stabbed in a back alley. 
+Next time be more selective of who can sharpen your blade.
+BRITISH ENDING
+""")
+            game_end = True
+            break
+        if fighting_death == True:
+
+            anim_print("""You got beat up by the angry man.
+Everybody claps as you breath your last breath.
+Shouldnt have smoked inside.
+FIGHT CLUB ENDING
+""")
+            game_end = True
+            break
+        if salvia_death == True:
+            anim_print("""While you were on the biggest trip of your life, you decided to attack a bystander.
+Little did you know you the person you attacked was a black belt in karate.
+You did not see tommorrow.
+SALVIA ENDING
+""")
+            game_end = True
+            break
+
+
+
 
     actions_per_airport = 2
     task_active = True
 
     
+    if game_end == False:
+        # Random event. If counter reaches 0 or under, executes random event script
+        if event_counter <= 0:
+            event_money, event_cp, kidney, player_death, roulette_played, pdiddy_ending, shark = random_event()
+            balance += event_money
+            cp += event_cp
+            loan_shark += shark
 
-    # Random event. If counter reaches 0 or under, executes random event script
-    if event_counter <= 0:
-        event_money, event_cp, kidney, player_death, roulette_played, pdiddy_ending, shark = random_event()
-        balance += event_money
-        cp += event_cp
-        loan_shark += shark
+            if pdiddy_ending == True:
+                anim_print("""You've become best friends with Sensei Diddy.
+    He paid off your loan to the shark in return for your pledge to party with him for the end of time.
+    P.DIDDY ENDING
+    """)
 
-        if pdiddy_ending == True:
-            anim_print("""You've become best friends with Sensei Diddy.
-He paid off your loan to the shark in return for your pledge to party with him for the end of time.
-P.DIDDY ENDING
-""")
+            # Results of russian roulette if played
+            if roulette_played == True:
 
-        # Results of russian roulette if played
-        if roulette_played == True:
+                # Ending lore for the russian roulette, if the player dies
+                if player_death == True:
+                    anim_print("""You died during your game of russian roulette.
+    Your body was never found. 
+    BRUTAL ENDING
+    """)
+                    loading()
+                    break
 
-            # Ending lore for the russian roulette, if the player dies
-            if player_death == True:
-                anim_print("""You died during your game of russian roulette.
-Your body was never found. 
-BRUTAL ENDING
-""")
-                loading()
-                break
-
-            # Ending lore for the russian roulette, if the player surrvives
-            elif player_death == False:
-                anim_print("""The Shark died during the game of russian roulette.
-You got free of your debt and inherited the sharks loan business.
-You found a list of names in the office.
-Time to go hunting.
-VILLAIN ENDING
-""")
-                loading()
-                break
-        event_counter = 6
+                # Ending lore for the russian roulette, if the player surrvives
+                elif player_death == False:
+                    anim_print("""The Shark died during the game of russian roulette.
+    You got free of your debt and inherited the sharks loan business.
+    You found a list of names in the office.
+    Time to go hunting.
+    VILLAIN ENDING
+    """)
+                    loading()
+                    break
+            event_counter = 6
 
 
 anim_print(f"""Stats:
