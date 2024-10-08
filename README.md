@@ -45,3 +45,7 @@ Main gameplay loop ehkä
 - gambling.py
 - pickpocket.py (could add prosentage based money loss(10% of total money))
 - random_events.py
+
+### NOTE FOR MAC USERS
+You have to edit configurations of the file you're running and allow emulating terminal in console
+<img width="1470" alt="Screenshot 2024-10-08 at 13 13 05" src="https://github.com/user-attachments/assets/cb275035-55b0-4b41-a50b-5d3dca743f3c">
