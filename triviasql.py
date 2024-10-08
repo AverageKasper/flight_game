@@ -121,5 +121,4 @@ def trivia_game():
     except mysql.connector.Error as err:
         anim_print(f"Error: {err}")
     finally:
-        conn.close()
         return score
