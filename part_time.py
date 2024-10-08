@@ -1,4 +1,5 @@
 #part time point is to create a task that will take from 1-3 steps to complete rewards gained also scale from 1-3
+#Currently not used, will be improved upon for the final product later this year!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 import random
 
 def part_time():
