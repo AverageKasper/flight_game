@@ -1,8 +1,7 @@
 import random as r
 import time
-from utilities import anim_print
-from utilities import clear_window
-from utilities import int_check
+from utilities import anim_print, loading, clear_window, int_check
+
 
 #Horse racing
 def horse_race(money):
@@ -22,7 +21,7 @@ def horse_race(money):
             anim_print("Invalid horse. Please choose from the list.\n")
             continue
         break
-
+    anim_print(f"Your total balance is {money} euros\n")
     bet = input(anim_print("How much do you want to bet: "))
     bet = int_check(bet)
     while bet > money:
@@ -96,7 +95,7 @@ def blackjack(money):
             anim_print(f"{player}'s hand: {', '.join(hand)} (Value: {calculate_hand_value(hand)})\n")
 
     print("Welcome to Blackjack!")
-
+    anim_print(f"Your total balance is {money} euros\n")
     bet = input(anim_print("How much do you want to bet: "))
     bet = int_check(bet)
     while bet > money:
@@ -158,6 +157,8 @@ def casino(money:int):
 
         if money <= 0: # Check if player has money
             anim_print("\nYou dont have any money, what are you doing at the casino?")
+            loading()
+            clear_window()
             break
 
         game_select = input(anim_print("\nChoose a game to play (dice, hilo, snake eyes, blackjack, horse racing) or go back (return): ")).upper()
@@ -166,6 +167,7 @@ def casino(money:int):
             
         if game_select != gameoptions[5]:
             if game_select == gameoptions[2]:  # Dice game
+                anim_print(f"Your total balance is {money} euros\n")
                 bet = input(anim_print("How much do you want to bet: "))
                 bet = int_check(bet)
                 while bet > money:
@@ -187,6 +189,7 @@ def casino(money:int):
                     anim_print("It's a tie!\n")
                 anim_print(f"Your total balance is {money} euros\n")
             elif game_select == gameoptions[1]:  # Hi-Lo
+                anim_print(f"Your total balance is {money} euros\n")
                 bet = input(anim_print("How much do you want to bet: "))
                 bet = int_check(bet)
                 while bet > money:
@@ -209,6 +212,7 @@ def casino(money:int):
                 anim_print(f"Your total balance is {money} euros\n")
 
             elif game_select == gameoptions[0]:  # Snake Eyes
+                anim_print(f"Your total balance is {money} euros\n")
                 bet = input(anim_print("How much do you want to bet: "))
                 bet = int_check(bet)
                 while bet > money:
