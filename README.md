@@ -34,24 +34,21 @@ Main gameplay loop ehkä
 ![image](https://github.com/user-attachments/assets/e1050929-a54e-4af6-ba68-8142ed86f489)
 
 ### Tasks made
-
-- Dumpster Diving  / small
+- Dumpster Diving / small
 - Pickpocketing / small
-- Trivia * / medium
-- Part-time Work / medium
-- Gambling * / large
+- Trivia / medium
+- Gambling / large
 - Smoking / large
-* - needs work
+  
 ### Task Ideas
+- Part time work
 - 
 ### Random event ideas
-- Call mother for allowance
-- You meet a Black market Organ dealer, you can sell your kidney
-- 9/11 2
-- P Diddy encounter
+- 
 
-### Finished scripts
-- dumpster.py
-- gambling.py
-- pickpocket.py (could add prosentage based money loss(10% of total money))
-- random_events.py
+### Future plans
+- Slots in gambling
+- Achievement system
+- Currencies to the sql
+- Pop-up ads
+- Balancing
