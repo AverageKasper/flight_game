@@ -3,9 +3,14 @@ You have to edit configurations of the file you're running and allow emulating t
 <img width="1470" alt="Screenshot 2024-10-08 at 13 13 05" src="https://github.com/user-attachments/assets/cb275035-55b0-4b41-a50b-5d3dca743f3c">
 
 
-# flight_game
+# Debt & Deceit
 Ryhmäprojekti
-docs https://docs.google.com/document/d/1cmcR5F7apvGQ1dA0ZNrm-sy3mD_xx5VQrHhuvgj7IXs/edit?usp=sharing
+
+### Docs 
+https://docs.google.com/document/d/1cmcR5F7apvGQ1dA0ZNrm-sy3mD_xx5VQrHhuvgj7IXs/edit?usp=sharing
+### Viikkoseuranta
+https://docs.google.com/spreadsheets/d/1aUP90JEgglQlt5avlLCs3kAc7PGmndfD-MUksOSdXVo/edit?gid=0#gid=0
+
 ## Vibe Check
 ### Elias:
 Bing chilling
