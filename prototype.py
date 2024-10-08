@@ -47,6 +47,7 @@ actions_per_airport = 2
 # What if when you go to a small airport the event counter goes down by 1, medium goes by 2, and large goes by 3. and events are some good some bad, more bad
 kidney = 2
 event_counter = 6
+player_death = False
 smoking_death = False
 stabbed = False
 joint_death = False
@@ -166,6 +167,10 @@ def l_airport_task(current_money,shark):
     total_money = current_money
     total_cp = 0
     actions_left = 2
+    player_death = False
+    stabbed = False
+    fighting_death = False
+    salvia_death = False
     while actions_left >0:
         anim_print(f"""
 You are at {airport_name}, {airport_country}
@@ -359,16 +364,15 @@ BAD ENDING
 
         game_end = True
         break
-    if player_death == True: #player_death, stabbed, fighting_death, salvia_death
-        if stabbed == True:
+    if player_death == True: 
+        if stabbed == True: #Stabbed ending
             anim_print("""You got stabbed in a back alley. 
 Next time be more selective of who can sharpen your blade.
 BRITISH ENDING
 """)
             game_end = True
             break
-        if fighting_death == True:
-
+        if fighting_death == True: #Beated up ending
             anim_print("""You got beat up by the angry man.
 Everybody claps as you breath your last breath.
 Shouldnt have smoked inside.
@@ -376,7 +380,7 @@ FIGHT CLUB ENDING
 """)
             game_end = True
             break
-        if salvia_death == True:
+        if salvia_death == True: #Salvia ending, ultra rare pull
             anim_print("""While you were on the biggest trip of your life, you decided to attack a bystander.
 Little did you know you the person you attacked was a black belt in karate.
 You did not see tommorrow.
@@ -400,7 +404,7 @@ SALVIA ENDING
             cp += event_cp
             loan_shark += shark
 
-            if pdiddy_ending == True:
+            if pdiddy_ending == True: # P.Diddy ending
                 anim_print("""You've become best friends with Sensei Diddy.
     He paid off your loan to the shark in return for your pledge to party with him for the end of time.
     P.DIDDY ENDING
@@ -452,21 +456,14 @@ Googling shit
 ඞ
 """)
 anim_print("""
-———————————No bitches?———————————
-⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝
-⠸⡸⠜⠕⠕⠁⢁⢇⢏⢽⢺⣪⡳⡝⣎⣏⢯⢞⡿⣟⣷⣳⢯⡷⣽⢽⢯⣳⣫⠇
-⠀⠀⢀⢀⢄⢬⢪⡪⡎⣆⡈⠚⠜⠕⠇⠗⠝⢕⢯⢫⣞⣯⣿⣻⡽⣏⢗⣗⠏⠀
-⠀⠪⡪⡪⣪⢪⢺⢸⢢⢓⢆⢤⢀⠀⠀⠀⠀⠈⢊⢞⡾⣿⡯⣏⢮⠷⠁⠀⠀
-⠀⠀⠀⠈⠊⠆⡃⠕⢕⢇⢇⢇⢇⢇⢏⢎⢎⢆⢄⠀⢑⣽⣿⢝⠲⠉⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⡿⠂⠠⠀⡇⢇⠕⢈⣀⠀⠁⠡⠣⡣⡫⣂⣿⠯⢪⠰⠂⠀⠀⠀⠀
-⠀⠀⠀⠀⡦⡙⡂⢀⢤⢣⠣⡈⣾⡃⠠⠄⠀⡄⢱⣌⣶⢏⢊⠂⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⢝⡲⣜⡮⡏⢎⢌⢂⠙⠢⠐⢀⢘⢵⣽⣿⡿⠁⠁⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠨⣺⡺⡕⡕⡱⡑⡆⡕⡅⡕⡜⡼⢽⡻⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⣼⣳⣫⣾⣵⣗⡵⡱⡡⢣⢑⢕⢜⢕⡝⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⣴⣿⣾⣿⣿⣿⡿⡽⡑⢌⠪⡢⡣⣣⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⡟⡾⣿⢿⢿⢵⣽⣾⣼⣘⢸⢸⣞⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠁⠇⠡⠩⡫⢿⣝⡻⡮⣒⢽⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-—————————————————————————————
+┈┈┈┈╱▏┈┈┈┈┈╱▔▔▔▔╲┈┈┈┈┈
+┈┈┈┈▏▏┈┈┈┈┈▏╲▕▋▕▋▏┈┈┈┈
+┈┈┈┈╲╲┈┈┈┈┈▏┈▏┈▔▔▔▆┈┈┈
+┈┈┈┈┈╲▔▔▔▔▔╲╱┈╰┳┳┳╯┈┈┈
+┈┈╱╲╱╲▏┈┈┈┈┈┈▕▔╰━╯┈┈┈┈
+┈┈▔╲╲╱╱▔╱▔▔╲╲╲╲┈┈┈┈┈┈┈
+┈┈┈┈╲╱╲╱┈┈┈┈╲╲▂╲▂┈┈┈┈┈
+┈┈┈┈┈┈┈┈┈┈┈┈┈╲╱╲╱┈┈┈┈┈
 """, 0.0001)
 input()
 
