@@ -206,7 +206,8 @@ Things to do at this airport:
 
 
 clear_window()
-# Under here starts the game
+
+# Game starts from here
 
 ## TODO:   MAIN MENU
 ##          Change pickpocket penalty    
@@ -447,7 +448,7 @@ clear_window()
 # Credits at the end of the game
 anim_print(f"""Credits:  
 Elias Eide
-Munttu
+Muntasir Sheikh Musse
 Kasper Paredes Aalto
 Alexander Wolff
 Special thanks to:
@@ -470,7 +471,7 @@ anim_print("""
 ⠀⠀⠀⡟⡾⣿⢿⢿⢵⣽⣾⣼⣘⢸⢸⣞⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠁⠇⠡⠩⡫⢿⣝⡻⡮⣒⢽⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 —————————————————————————————
-""", 0.0001)
+""", 0.01)
 input()
 
 # List of shit to do:

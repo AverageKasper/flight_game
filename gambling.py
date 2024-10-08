@@ -63,13 +63,13 @@ def horse_race(money):
 def blackjack(money):
     def deal_card():
 
-        ## Deals a random card from the deck.
+        # Deals a random card from the deck.
         cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'] * 4
         return r.choice(cards)
 
     def calculate_hand_value(hand):
 
-        ## Calculates the value of a hand of cards.
+        # Calculates the value of the cards
         card_values = {
             '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10,
             'J': 10, 'Q': 10, 'K': 10, 'A': 11
@@ -87,7 +87,7 @@ def blackjack(money):
 
     def display_hand(player, hand, hide_dealer_card=False):
 
-        ## Displays the player's or dealer's hand. Optionally hides the dealer's second card.
+        # Displays the player's or dealer's hand. Optionally hides the dealer's second card.
         if hide_dealer_card:
             hand_display = [hand[0], "Hidden"]
             anim_print(f"{player}'s hand: {', '.join(hand_display)}\n")
@@ -108,7 +108,7 @@ def blackjack(money):
     display_hand("Dealer", dealer_hand, hide_dealer_card=True)  # Show the dealer's first card, hide the second
     display_hand("Player", player_hand)
 
-    # Player's turn
+    # Players turn
     while calculate_hand_value(player_hand) < 21:
         choice = input("Do you want to 'hit' or 'stand'? ").lower()
         if choice == 'hit':
@@ -122,7 +122,7 @@ def blackjack(money):
         elif choice == 'stand':
             break
 
-    # Dealer's turn
+    # Dealers turn
     display_hand("Dealer", dealer_hand)  # Now reveal the dealer's full hand
     while calculate_hand_value(dealer_hand) < 17:
         dealer_hand.append(deal_card())

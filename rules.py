@@ -16,7 +16,7 @@ def rule_print():
     while page_turn == 1:
         anim_print("""HOW TO PLAY
 Your goal is to avoid the loanshark (aka The Shark), and gather money to pay back your debt to him.
-You fly around to different airports using CP (Carbon Points) and do tasks at the ariports to gain money.
+You fly around to different airports using CP (Carbon Points) and do tasks at the airports to gain money.
 Every flight puts the Shark 1 step behind and every task you do makes the Shark come 1 step closer.
 """)
         page_turn = next_page()
