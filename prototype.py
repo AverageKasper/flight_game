@@ -1,7 +1,6 @@
 # Basic imports
 import random as r
 import time
-
 #Task Scripts
 from triviasql import trivia_game
 from gambling import casino
@@ -456,7 +455,7 @@ Googling shit
 ඞ
 """)
 anim_print("""
-———————————No Maidens?———————————
+———————————Maidenless?———————————
 ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝
 ⠸⡸⠜⠕⠕⠁⢁⢇⢏⢽⢺⣪⡳⡝⣎⣏⢯⢞⡿⣟⣷⣳⢯⡷⣽⢽⢯⣳⣫⠇
 ⠀⠀⢀⢀⢄⢬⢪⡪⡎⣆⡈⠚⠜⠕⠇⠗⠝⢕⢯⢫⣞⣯⣿⣻⡽⣏⢗⣗⠏⠀
