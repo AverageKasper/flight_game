@@ -3,9 +3,9 @@ You have to edit configurations of the file you're running and allow emulating t
 <img width="1470" alt="Screenshot 2024-10-08 at 13 13 05" src="https://github.com/user-attachments/assets/cb275035-55b0-4b41-a50b-5d3dca743f3c">
 
 ### HOW TO PLAY
-It is expected that you have the flight_game database installed. The script will create needed tables.
-Change your database username and password in the utilites.py file
-Download all the python files, keep them in the same folder and run prototype.py 
+- It is expected that you have the flight_game database installed. The script will create needed tables.
+- Change your database username and password in the utilites.py file
+- Download all the python files, keep them in the same folder and run prototype.py 
 
 # Debt & Deceit
 Ryhmäprojekti
