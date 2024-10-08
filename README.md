@@ -1,7 +1,9 @@
-### NOTE FOR MAC USERS
+### NOTE FOR MAC USERS / PYCHARM USERS 
 You have to edit configurations of the file you're running and allow emulating terminal in console
 <img width="1470" alt="Screenshot 2024-10-08 at 13 13 05" src="https://github.com/user-attachments/assets/cb275035-55b0-4b41-a50b-5d3dca743f3c">
 
+### HOW TO PLAY
+download all the python files, keep them in the same folder and run prototype.py 
 
 # Debt & Deceit
 Ryhmäprojekti
