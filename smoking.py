@@ -2,7 +2,7 @@ from utilities import anim_print, clear_window
 import time
 import random
 
-# Funktio printtaa boksin rööki listan ympärille.
+# Prints a nice box around the cigarette_brands
 def print_boxed_list(items):
 
     max_len = max(len(str(item)) for item in items)
@@ -18,7 +18,7 @@ def print_boxed_list(items):
 
     print('+' + '-' * (box_width) + '+')
 
-# Tappelu funktio
+# Turn based combat function
 def start_fighting(salvia_mode=False):
     player_death=False
     player = {
@@ -61,7 +61,7 @@ def start_fighting(salvia_mode=False):
         print(f"{defender['name']} has {defender['health']} health left.\n")
         time.sleep(1)
 
-    # Player's turn function
+    # Players turn function
     def player_turn():
         print("It's your turn! Choose your attack:")
         for attack in player["attacks"]:
@@ -89,7 +89,7 @@ def start_fighting(salvia_mode=False):
             player_attack = player_turn()
             attack(player, enemy, player_attack)
 
-            # Check if enemy is dead immediately after attack
+            # Check if enemy is dead after attack
             if enemy["health"] <= 0:
                 if salvia_mode:
                     anim_print("You murdered an innocent bystander in cold blood!\n")
@@ -106,7 +106,7 @@ def start_fighting(salvia_mode=False):
             enemy_attack = enemy_turn()
             attack(enemy, player, enemy_attack)
 
-            # Check if player is dead immediately after attack
+            # Check if player is dead after attack
             if player["health"] <= 0:
                 anim_print("You have been killed!\n")
                 player_death = True
@@ -116,12 +116,12 @@ def start_fighting(salvia_mode=False):
 
     print("The fight is over!")
 
-# Rööki lista
+# Cigarette list
 cigarette_brands = [
         "MARLBORO RED", "MARLBORO GOLD", "WEST BLUE", "JOHN PLAYER SPECIAL",
         "SALVIA JOINT", "AMERICAN BLACK"]
 
-# Rööki pää funktio
+# Main function for the smoking break
 def smoking_action():
     money = 0
     player_death=False
@@ -129,7 +129,7 @@ def smoking_action():
     fighting_death=False
     salvia_death=False
 
-
+# Prints the cigarette list and asks which one you want to choose
     print_boxed_list(cigarette_brands)
     cig=input(anim_print("You are at 7eleven, choose your delicacy: \n")).upper()
     clear_window()
