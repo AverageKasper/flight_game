@@ -3,15 +3,19 @@ You have to edit configurations of the file you're running and allow emulating t
 <img width="1470" alt="Screenshot 2024-10-08 at 13 13 05" src="https://github.com/user-attachments/assets/cb275035-55b0-4b41-a50b-5d3dca743f3c">
 
 ### HOW TO PLAY
-download all the python files, keep them in the same folder and run prototype.py 
+It is expected that you have the flight_game database installed. The script will create needed tables.
+Change your database username and password in the utilites.py file
+Download all the python files, keep them in the same folder and run prototype.py 
 
 # Debt & Deceit
 Ryhmäprojekti
 
 ### Docs 
 https://docs.google.com/document/d/1cmcR5F7apvGQ1dA0ZNrm-sy3mD_xx5VQrHhuvgj7IXs/edit?usp=sharing
-### Viikkoseuranta
+### Weekly following
 https://docs.google.com/spreadsheets/d/1aUP90JEgglQlt5avlLCs3kAc7PGmndfD-MUksOSdXVo/edit?gid=0#gid=0
+### Dia presentation
+https://docs.google.com/presentation/d/1C9feL59Sy5J0xFQ5pmJTHOz5bdIXzbRCKgKf4FvtqQM/edit#slide=id.g308f9b56c09_0_15
 
 ## Vibe Check
 ### Elias:
